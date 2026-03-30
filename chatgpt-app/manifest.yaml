@@ -1,0 +1,58 @@
+# ChatGPT App Manifest
+
+schema_version: v1
+name: "GenAI Tutor"
+description: "Your 24/7 AI-powered tutor for Generative AI Fundamentals. Learn at your own pace with personalized explanations, quizzes, and progress tracking."
+
+# Authentication Configuration
+auth:
+  type: oauth
+  authorization_url: https://your-project.supabase.co/auth/v1/authorize
+  token_url: https://your-project.supabase.co/auth/v1/token
+  scope: "read write"
+  client_id: your_client_id
+  
+# API Configuration
+api:
+  type: openapi
+  url: https://your-backend.railway.app/openapi.json
+  has_user_authentication: true
+
+# App Information
+logo_url: https://cdn.example.com/genai-tutor-logo.png
+contact_email: support@genai-tutor.com
+
+# Privacy & Terms
+privacy_policy_url: https://genai-tutor.com/privacy
+terms_of_service_url: https://genai-tutor.com/terms
+
+# Capabilities
+capabilities:
+  conversations: true
+  actions: true
+  code_interpreter: false
+  image_generation: false
+
+# Domain Configuration
+domains:
+  - your-backend.railway.app
+
+# Example User Queries
+example_prompts:
+  - "Explain what a transformer is"
+  - "Quiz me on Chapter 3"
+  - "How am I progressing?"
+  - "What's the difference between GANs and VAEs?"
+  - "Help me understand attention mechanisms"
+
+# Welcome Message
+welcome_message: |
+  Hi! I'm your GenAI Tutor, here to help you master Generative AI Fundamentals. 🎓
+  
+  I can:
+  • Explain course concepts in different ways
+  • Guide you through chapter quizzes
+  • Track your progress and celebrate wins
+  • Answer questions using only course content
+  
+  What would you like to learn today?

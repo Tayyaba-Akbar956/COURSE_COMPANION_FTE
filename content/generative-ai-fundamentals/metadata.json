@@ -1,0 +1,482 @@
+{
+  "course": {
+    "title": "Generative AI Fundamentals",
+    "version": "1.0.0",
+    "description": "A comprehensive 24-chapter course covering generative AI fundamentals, from basic concepts to practical applications.",
+    "target_audience": "Intermediate learners with basic Python programming knowledge",
+    "total_chapters": 24,
+    "total_modules": 6,
+    "estimated_duration_hours": 40,
+    "license": "Open Source",
+    "created_at": "2026-03-30",
+    "updated_at": "2026-03-30"
+  },
+  "modules": [
+    {
+      "module_number": 1,
+      "title": "Introduction to Generative AI",
+      "description": "Foundational concepts, history, and applications of generative AI",
+      "chapters": 4,
+      "is_free": true
+    },
+    {
+      "module_number": 2,
+      "title": "Understanding Large Language Models",
+      "description": "Deep dive into LLMs, transformers, training, and capabilities",
+      "chapters": 4,
+      "is_free": false
+    },
+    {
+      "module_number": 3,
+      "title": "Prompt Engineering Fundamentals",
+      "description": "Master the art and science of prompting AI models",
+      "chapters": 4,
+      "is_free": false
+    },
+    {
+      "module_number": 4,
+      "title": "Retrieval Augmented Generation (RAG)",
+      "description": "Build RAG systems for domain-specific applications",
+      "chapters": 4,
+      "is_free": false
+    },
+    {
+      "module_number": 5,
+      "title": "Fine-tuning and Customization",
+      "description": "Learn when and how to fine-tune models for specific tasks",
+      "chapters": 4,
+      "is_free": false
+    },
+    {
+      "module_number": 6,
+      "title": "Building Generative AI Applications",
+      "description": "Design, deploy, and maintain AI-powered applications",
+      "chapters": 4,
+      "is_free": false
+    }
+  ],
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "module_id": 1,
+      "title": "What is Generative AI?",
+      "file": "chapter-01-intro.md",
+      "estimated_minutes": 15,
+      "is_free": true,
+      "order_in_module": 1,
+      "learning_objectives": [
+        "Define generative AI and distinguish it from other types of AI",
+        "Understand the key characteristics that make AI generative",
+        "Identify real-world applications of generative AI",
+        "Explain why generative AI has become so powerful recently"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 2,
+      "module_id": 1,
+      "title": "Evolution of AI: From Discriminative to Generative",
+      "file": "chapter-02-evolution.md",
+      "estimated_minutes": 20,
+      "is_free": true,
+      "order_in_module": 2,
+      "learning_objectives": [
+        "Trace the historical development of AI from rule-based to generative systems",
+        "Distinguish between different generations of AI approaches",
+        "Understand why generative AI represents a paradigm shift",
+        "Identify the key milestones that led to modern generative AI"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 3,
+      "module_id": 1,
+      "title": "Key Concepts and Terminology",
+      "file": "chapter-03-concepts.md",
+      "estimated_minutes": 25,
+      "is_free": true,
+      "order_in_module": 3,
+      "learning_objectives": [
+        "Understand essential terminology used in generative AI",
+        "Explain core concepts like tokens, prompts, and models",
+        "Distinguish between different types of AI models",
+        "Navigate technical discussions about generative AI with confidence"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 4,
+      "module_id": 1,
+      "title": "Applications and Use Cases",
+      "file": "chapter-04-applications.md",
+      "estimated_minutes": 25,
+      "is_free": true,
+      "order_in_module": 4,
+      "learning_objectives": [
+        "Identify major application areas of generative AI",
+        "Evaluate when generative AI is appropriate for a use case",
+        "Understand industry-specific applications",
+        "Recognize opportunities to apply generative AI in your work"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 5,
+      "module_id": 2,
+      "title": "What are LLMs?",
+      "file": "chapter-05-llms.md",
+      "estimated_minutes": 20,
+      "is_free": false,
+      "order_in_module": 1,
+      "learning_objectives": [
+        "Define Large Language Models and their characteristics",
+        "Understand how LLMs differ from traditional NLP",
+        "Identify major LLM providers and models",
+        "Explain the relationship between scale and capability"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 6,
+      "module_id": 2,
+      "title": "How LLMs Work: Transformers Architecture",
+      "file": "chapter-06-transformers.md",
+      "estimated_minutes": 30,
+      "is_free": false,
+      "order_in_module": 2,
+      "learning_objectives": [
+        "Understand the transformer architecture components",
+        "Explain self-attention mechanism",
+        "Describe encoder vs. decoder architectures",
+        "Visualize how transformers process text"
+      ],
+      "quiz_questions": 8
+    },
+    {
+      "chapter_number": 7,
+      "module_id": 2,
+      "title": "Training and Pre-training LLMs",
+      "file": "chapter-07-training.md",
+      "estimated_minutes": 25,
+      "is_free": false,
+      "order_in_module": 3,
+      "learning_objectives": [
+        "Understand the pre-training process",
+        "Learn about training data sources and preparation",
+        "Explain fine-tuning vs. pre-training",
+        "Discuss computational requirements and costs"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 8,
+      "module_id": 2,
+      "title": "LLM Capabilities and Limitations",
+      "file": "chapter-08-capabilities.md",
+      "estimated_minutes": 20,
+      "is_free": false,
+      "order_in_module": 4,
+      "learning_objectives": [
+        "Identify what LLMs do well",
+        "Understand common failure modes",
+        "Recognize hallucination and mitigation strategies",
+        "Set appropriate expectations for LLM use"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 9,
+      "module_id": 3,
+      "title": "Introduction to Prompt Engineering",
+      "file": "chapter-09-prompt-intro.md",
+      "estimated_minutes": 20,
+      "is_free": false,
+      "order_in_module": 1,
+      "learning_objectives": [
+        "Define prompt engineering and its importance",
+        "Understand basic prompting principles",
+        "Learn common prompt patterns",
+        "Practice writing effective prompts"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 10,
+      "module_id": 3,
+      "title": "Prompt Design Patterns and Techniques",
+      "file": "chapter-10-prompt-patterns.md",
+      "estimated_minutes": 25,
+      "is_free": false,
+      "order_in_module": 2,
+      "learning_objectives": [
+        "Master common prompt patterns",
+        "Learn few-shot prompting techniques",
+        "Understand chain-of-thought prompting",
+        "Apply role-based prompting"
+      ],
+      "quiz_questions": 6
+    },
+    {
+      "chapter_number": 11,
+      "module_id": 3,
+      "title": "Advanced Prompting Strategies",
+      "file": "chapter-11-advanced-prompting.md",
+      "estimated_minutes": 30,
+      "is_free": false,
+      "order_in_module": 3,
+      "learning_objectives": [
+        "Learn advanced prompting techniques",
+        "Understand retrieval-augmented prompting",
+        "Master multi-turn conversation design",
+        "Apply prompting to complex tasks"
+      ],
+      "quiz_questions": 6
+    },
+    {
+      "chapter_number": 12,
+      "module_id": 3,
+      "title": "Prompt Optimization and Best Practices",
+      "file": "chapter-12-prompt-optimization.md",
+      "estimated_minutes": 20,
+      "is_free": false,
+      "order_in_module": 4,
+      "learning_objectives": [
+        "Learn to evaluate prompt effectiveness",
+        "Understand prompt iteration strategies",
+        "Apply best practices for production prompts",
+        "Avoid common prompting mistakes"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 13,
+      "module_id": 4,
+      "title": "What is RAG and Why It Matters",
+      "file": "chapter-13-rag-intro.md",
+      "estimated_minutes": 20,
+      "is_free": false,
+      "order_in_module": 1,
+      "learning_objectives": [
+        "Define Retrieval Augmented Generation",
+        "Understand why RAG is important",
+        "Identify RAG use cases",
+        "Compare RAG to fine-tuning"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 14,
+      "module_id": 4,
+      "title": "Building a RAG System",
+      "file": "chapter-14-building-rag.md",
+      "estimated_minutes": 35,
+      "is_free": false,
+      "order_in_module": 2,
+      "learning_objectives": [
+        "Understand RAG system architecture",
+        "Learn document processing pipelines",
+        "Implement retrieval mechanisms",
+        "Build end-to-end RAG applications"
+      ],
+      "quiz_questions": 8
+    },
+    {
+      "chapter_number": 15,
+      "module_id": 4,
+      "title": "Vector Databases and Embeddings",
+      "file": "chapter-15-vector-databases.md",
+      "estimated_minutes": 30,
+      "is_free": false,
+      "order_in_module": 3,
+      "learning_objectives": [
+        "Understand vector embeddings",
+        "Learn about vector databases",
+        "Compare embedding models",
+        "Implement semantic search"
+      ],
+      "quiz_questions": 6
+    },
+    {
+      "chapter_number": 16,
+      "module_id": 4,
+      "title": "RAG Best Practices and Optimization",
+      "file": "chapter-16-rag-best-practices.md",
+      "estimated_minutes": 25,
+      "is_free": false,
+      "order_in_module": 4,
+      "learning_objectives": [
+        "Learn RAG optimization techniques",
+        "Understand retrieval quality factors",
+        "Apply best practices for production RAG",
+        "Troubleshoot common RAG issues"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 17,
+      "module_id": 5,
+      "title": "Introduction to Fine-tuning",
+      "file": "chapter-17-finetuning-intro.md",
+      "estimated_minutes": 20,
+      "is_free": false,
+      "order_in_module": 1,
+      "learning_objectives": [
+        "Understand what fine-tuning is",
+        "Learn when fine-tuning is appropriate",
+        "Compare fine-tuning approaches",
+        "Evaluate fine-tuning requirements"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 18,
+      "module_id": 5,
+      "title": "When to Fine-tune vs. Prompt Engineering",
+      "file": "chapter-18-finetuning-vs-prompting.md",
+      "estimated_minutes": 20,
+      "is_free": false,
+      "order_in_module": 2,
+      "learning_objectives": [
+        "Compare fine-tuning and prompt engineering",
+        "Understand trade-offs of each approach",
+        "Make informed decisions on approach",
+        "Evaluate cost-benefit analysis"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 19,
+      "module_id": 5,
+      "title": "Fine-tuning Methods and Techniques",
+      "file": "chapter-19-finetuning-methods.md",
+      "estimated_minutes": 35,
+      "is_free": false,
+      "order_in_module": 3,
+      "learning_objectives": [
+        "Learn full fine-tuning approach",
+        "Understand parameter-efficient methods (LoRA, QLoRA)",
+        "Compare fine-tuning techniques",
+        "Implement fine-tuning pipelines"
+      ],
+      "quiz_questions": 7
+    },
+    {
+      "chapter_number": 20,
+      "module_id": 5,
+      "title": "Evaluating Fine-tuned Models",
+      "file": "chapter-20-evaluating-models.md",
+      "estimated_minutes": 25,
+      "is_free": false,
+      "order_in_module": 4,
+      "learning_objectives": [
+        "Understand evaluation metrics",
+        "Learn evaluation methodologies",
+        "Implement testing pipelines",
+        "Monitor model performance"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 21,
+      "module_id": 6,
+      "title": "Designing AI-Native Applications",
+      "file": "chapter-21-ai-native-design.md",
+      "estimated_minutes": 25,
+      "is_free": false,
+      "order_in_module": 1,
+      "learning_objectives": [
+        "Understand AI-native design principles",
+        "Learn UX patterns for AI applications",
+        "Design for AI limitations",
+        "Create delightful AI experiences"
+      ],
+      "quiz_questions": 5
+    },
+    {
+      "chapter_number": 22,
+      "module_id": 6,
+      "title": "Building with APIs",
+      "file": "chapter-22-building-with-apis.md",
+      "estimated_minutes": 30,
+      "is_free": false,
+      "order_in_module": 2,
+      "learning_objectives": [
+        "Compare major AI API providers",
+        "Understand API pricing and limits",
+        "Implement API integration patterns",
+        "Handle errors and rate limits"
+      ],
+      "quiz_questions": 6
+    },
+    {
+      "chapter_number": 23,
+      "module_id": 6,
+      "title": "Deployment and Production Considerations",
+      "file": "chapter-23-deployment.md",
+      "estimated_minutes": 30,
+      "is_free": false,
+      "order_in_module": 3,
+      "learning_objectives": [
+        "Understand production requirements",
+        "Learn deployment strategies",
+        "Implement monitoring and logging",
+        "Plan for scale and reliability"
+      ],
+      "quiz_questions": 6
+    },
+    {
+      "chapter_number": 24,
+      "module_id": 6,
+      "title": "Ethics, Safety, and Responsible AI",
+      "file": "chapter-24-ethics.md",
+      "estimated_minutes": 25,
+      "is_free": false,
+      "order_in_module": 4,
+      "learning_objectives": [
+        "Understand AI ethics principles",
+        "Identify potential harms and biases",
+        "Implement safety measures",
+        "Practice responsible AI development"
+      ],
+      "quiz_questions": 5
+    }
+  ],
+  "quiz_bank": {
+    "total_questions": 140,
+    "questions_per_chapter": "5-8",
+    "passing_score": 80,
+    "format": "multiple_choice"
+  },
+  "achievements": [
+    {
+      "id": "first_chapter",
+      "name": "First Steps",
+      "description": "Complete your first chapter",
+      "icon": "🌟"
+    },
+    {
+      "id": "module_1_complete",
+      "name": "Foundation Builder",
+      "description": "Complete Module 1",
+      "icon": "📚"
+    },
+    {
+      "id": "quiz_master",
+      "name": "Quiz Master",
+      "description": "Score 100% on 5 quizzes",
+      "icon": "🏆"
+    },
+    {
+      "id": "streak_7",
+      "name": "Week Warrior",
+      "description": "Maintain a 7-day streak",
+      "icon": "🔥"
+    },
+    {
+      "id": "course_complete",
+      "name": "AI Expert",
+      "description": "Complete all 24 chapters",
+      "icon": "🎓"
+    }
+  ]
+}

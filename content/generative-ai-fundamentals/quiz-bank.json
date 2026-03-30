@@ -1,0 +1,1572 @@
+{
+  "quiz_bank": {
+    "course": "Generative AI Fundamentals",
+    "version": "1.0.0",
+    "total_chapters": 24,
+    "passing_score": 80,
+    "questions_per_chapter": 5,
+    "total_questions": 120
+  },
+  "chapters": {
+    "chapter_1": {
+      "title": "What is Generative AI?",
+      "questions": [
+        {
+          "id": "ch1_q1",
+          "question": "What is the key difference between generative AI and discriminative AI?",
+          "options": {
+            "A": "Generative AI is newer than discriminative AI",
+            "B": "Generative AI creates new content, while discriminative AI analyzes existing data",
+            "C": "Generative AI uses neural networks, while discriminative AI doesn't",
+            "D": "Generative AI is more expensive than discriminative AI"
+          },
+          "correct_answer": "B",
+          "explanation": "The fundamental difference is that generative AI creates new content while discriminative AI classifies or analyzes existing data."
+        },
+        {
+          "id": "ch1_q2",
+          "question": "Which of the following is NOT an example of generative AI?",
+          "options": {
+            "A": "A system that writes poetry based on a theme",
+            "B": "A system that classifies emails as spam or not spam",
+            "C": "A system that creates images from text descriptions",
+            "D": "A system that composes music in a specific style"
+          },
+          "correct_answer": "B",
+          "explanation": "Classifying emails as spam is a discriminative task (classification), not a generative one."
+        },
+        {
+          "id": "ch1_q3",
+          "question": "What architecture revolutionized generative AI in 2017?",
+          "options": {
+            "A": "Convolutional Neural Networks (CNNs)",
+            "B": "Recurrent Neural Networks (RNNs)",
+            "C": "Transformers",
+            "D": "Generative Adversarial Networks (GANs)"
+          },
+          "correct_answer": "C",
+          "explanation": "The Transformer architecture, introduced in 2017, revolutionized how AI models process sequential data."
+        },
+        {
+          "id": "ch1_q4",
+          "question": "Which factor did NOT contribute to the recent explosion of generative AI?",
+          "options": {
+            "A": "Massive datasets available for training",
+            "B": "Increased computing power from modern GPUs",
+            "C": "Algorithm breakthroughs like transformers",
+            "D": "Government regulations requiring AI development"
+          },
+          "correct_answer": "D",
+          "explanation": "The explosion was driven by data availability, computing power, and algorithmic breakthroughs—not regulations."
+        },
+        {
+          "id": "ch1_q5",
+          "question": "What is a 'hallucination' in the context of generative AI?",
+          "options": {
+            "A": "When the AI generates images instead of text",
+            "B": "When the AI generates false or nonsensical information that seems plausible",
+            "C": "When the AI takes too long to generate a response",
+            "D": "When the AI produces different outputs for the same input"
+          },
+          "correct_answer": "B",
+          "explanation": "Hallucination refers to when AI models generate information that sounds confident but is actually false or nonsensical."
+        }
+      ]
+    },
+    "chapter_2": {
+      "title": "Evolution of AI: From Discriminative to Generative",
+      "questions": [
+        {
+          "id": "ch2_q1",
+          "question": "Which era of AI is characterized by systems that follow explicit human-created rules?",
+          "options": {
+            "A": "Generative AI",
+            "B": "Discriminative Machine Learning",
+            "C": "Rule-Based AI",
+            "D": "Deep Learning"
+          },
+          "correct_answer": "C",
+          "explanation": "Rule-Based AI (1950s-1980s) relied on explicit rules created by humans."
+        },
+        {
+          "id": "ch2_q2",
+          "question": "What was the key innovation of the Transformer architecture?",
+          "options": {
+            "A": "Using multiple layers of neural networks",
+            "B": "Self-attention mechanism that processes all positions simultaneously",
+            "C": "Competing neural networks (generator and discriminator)",
+            "D": "Learning from unlabeled data"
+          },
+          "correct_answer": "B",
+          "explanation": "The transformer's key innovation was the self-attention mechanism, which allows the model to process all words in a sequence simultaneously."
+        },
+        {
+          "id": "ch2_q3",
+          "question": "Which model architecture uses two competing neural networks?",
+          "options": {
+            "A": "Transformer",
+            "B": "VAE (Variational Autoencoder)",
+            "C": "GAN (Generative Adversarial Network)",
+            "D": "RNN (Recurrent Neural Network)"
+          },
+          "correct_answer": "C",
+          "explanation": "GANs use two neural networks—a generator that creates fake content and a discriminator that tries to identify fakes."
+        },
+        {
+          "id": "ch2_q4",
+          "question": "What is a key limitation of discriminative AI that generative AI addresses?",
+          "options": {
+            "A": "Discriminative AI is too slow",
+            "B": "Discriminative AI requires labeled data for each specific task",
+            "C": "Discriminative AI uses too much memory",
+            "D": "Discriminative AI cannot run on CPUs"
+          },
+          "correct_answer": "B",
+          "explanation": "Discriminative AI needs labeled examples for each task. Generative AI can learn from unlabeled data and adapt to new tasks."
+        },
+        {
+          "id": "ch2_q5",
+          "question": "Which year marked the introduction of the Transformer architecture?",
+          "options": {
+            "A": "2014",
+            "B": "2016",
+            "C": "2017",
+            "D": "2020"
+          },
+          "correct_answer": "C",
+          "explanation": "The Transformer architecture was introduced in 2017 in the paper 'Attention Is All You Need'."
+        }
+      ]
+    },
+    "chapter_3": {
+      "title": "Key Concepts and Terminology",
+      "questions": [
+        {
+          "id": "ch3_q1",
+          "question": "Approximately how many words is 1,000 tokens?",
+          "options": {
+            "A": "500 words",
+            "B": "750 words",
+            "C": "1,000 words",
+            "D": "1,500 words"
+          },
+          "correct_answer": "B",
+          "explanation": "1,000 tokens is approximately 750 words in English, as 1 token ≈ 0.75 words."
+        },
+        {
+          "id": "ch3_q2",
+          "question": "What does temperature control in generative AI?",
+          "options": {
+            "A": "How fast the model runs",
+            "B": "How many tokens the model generates",
+            "C": "How random or deterministic the output is",
+            "D": "How much context the model remembers"
+          },
+          "correct_answer": "C",
+          "explanation": "Temperature controls randomness. Low temperature = focused/deterministic; High temperature = creative/diverse."
+        },
+        {
+          "id": "ch3_q3",
+          "question": "Which architecture powers modern large language models?",
+          "options": {
+            "A": "Convolutional Neural Network (CNN)",
+            "B": "Recurrent Neural Network (RNN)",
+            "C": "Transformer",
+            "D": "Generative Adversarial Network (GAN)"
+          },
+          "correct_answer": "C",
+          "explanation": "The Transformer architecture, introduced in 2017, powers all modern large language models."
+        },
+        {
+          "id": "ch3_q4",
+          "question": "What is the difference between training and inference?",
+          "options": {
+            "A": "Training is for text; inference is for images",
+            "B": "Training creates the model; inference uses the model",
+            "C": "Training is fast; inference is slow",
+            "D": "There is no difference"
+          },
+          "correct_answer": "B",
+          "explanation": "Training is the process of teaching the model (takes weeks, done once). Inference is using the trained model to generate outputs (takes milliseconds)."
+        },
+        {
+          "id": "ch3_q5",
+          "question": "What is fine-tuning?",
+          "options": {
+            "A": "Training a model from scratch",
+            "B": "Adapting a pre-trained model to specific tasks or domains",
+            "C": "Converting text to tokens",
+            "D": "Measuring model accuracy"
+          },
+          "correct_answer": "B",
+          "explanation": "Fine-tuning adapts pre-trained models to specific tasks by training on domain-specific data."
+        }
+      ]
+    },
+    "chapter_4": {
+      "title": "Applications and Use Cases",
+      "questions": [
+        {
+          "id": "ch4_q1",
+          "question": "Which use case is MOST appropriate for generative AI?",
+          "options": {
+            "A": "Diagnosing medical conditions",
+            "B": "Generating first drafts of marketing emails",
+            "C": "Making final hiring decisions",
+            "D": "Approving financial transactions"
+          },
+          "correct_answer": "B",
+          "explanation": "Generating first drafts of marketing emails is ideal for generative AI—it's high-volume, repetitive, and benefits from human review."
+        },
+        {
+          "id": "ch4_q2",
+          "question": "What is a key benefit of using generative AI in software development?",
+          "options": {
+            "A": "It eliminates the need for programmers",
+            "B": "It guarantees bug-free code",
+            "C": "It can increase coding speed by providing suggestions",
+            "D": "It automatically deploys code to production"
+          },
+          "correct_answer": "C",
+          "explanation": "Tools like GitHub Copilot can increase coding speed (studies show ~55% faster) by providing code suggestions."
+        },
+        {
+          "id": "ch4_q3",
+          "question": "Which industry application requires the MOST caution with generative AI?",
+          "options": {
+            "A": "Social media content generation",
+            "B": "Healthcare documentation",
+            "C": "Product description writing",
+            "D": "Meeting summarization"
+          },
+          "correct_answer": "B",
+          "explanation": "Healthcare applications require extreme caution due to patient safety, privacy regulations (HIPAA), and the critical nature of medical information."
+        },
+        {
+          "id": "ch4_q4",
+          "question": "When should you NOT use generative AI?",
+          "options": {
+            "A": "When you need to generate many variations",
+            "B": "When factual accuracy is critical and unverifiable",
+            "C": "When creating first drafts",
+            "D": "When summarizing long documents"
+          },
+          "correct_answer": "B",
+          "explanation": "Generative AI can hallucinate facts. For applications where factual accuracy is critical and cannot be easily verified, alternative approaches are needed."
+        },
+        {
+          "id": "ch4_q5",
+          "question": "What is the primary value proposition of generative AI in customer service?",
+          "options": {
+            "A": "Completely replacing human agents",
+            "B": "Handling common questions instantly while escalating complex issues",
+            "C": "Making decisions about customer complaints",
+            "D": "Storing customer data"
+          },
+          "correct_answer": "B",
+          "explanation": "The best use of AI in customer service is handling common, repetitive questions instantly (24/7 availability) while escalating complex issues to human agents."
+        }
+      ]
+    },
+    "chapter_5": {
+      "title": "What are LLMs?",
+      "questions": [
+        {
+          "id": "ch5_q1",
+          "question": "What is the primary architectural foundation of modern LLMs?",
+          "options": {
+            "A": "Convolutional Neural Networks",
+            "B": "Recurrent Neural Networks",
+            "C": "Transformer Architecture",
+            "D": "Generative Adversarial Networks"
+          },
+          "correct_answer": "C",
+          "explanation": "All modern LLMs use the Transformer architecture, introduced in 2017, which relies on self-attention mechanisms."
+        },
+        {
+          "id": "ch5_q2",
+          "question": "Which of the following is NOT a characteristic of LLMs?",
+          "options": {
+            "A": "Billions of parameters",
+            "B": "Trained on massive datasets",
+            "C": "Task-specific design",
+            "D": "General-purpose capabilities"
+          },
+          "correct_answer": "C",
+          "explanation": "LLMs are general-purpose models, not task-specific. Traditional NLP models were task-specific."
+        },
+        {
+          "id": "ch5_q3",
+          "question": "What are the two main phases of LLM training?",
+          "options": {
+            "A": "Training and Testing",
+            "B": "Pre-training and Fine-tuning",
+            "C": "Encoding and Decoding",
+            "D": "Learning and Validation"
+          },
+          "correct_answer": "B",
+          "explanation": "LLMs undergo pre-training (learning general language patterns) followed by fine-tuning (adapting to specific behaviors)."
+        },
+        {
+          "id": "ch5_q4",
+          "question": "Which model is known for having the largest context window?",
+          "options": {
+            "A": "GPT-4",
+            "B": "Llama 2",
+            "C": "Claude 3",
+            "D": "Mistral"
+          },
+          "correct_answer": "C",
+          "explanation": "Claude 3 supports context windows up to 200,000 tokens, significantly larger than competitors."
+        },
+        {
+          "id": "ch5_q5",
+          "question": "What does the scaling hypothesis suggest?",
+          "options": {
+            "A": "Smaller models are always better",
+            "B": "Model capabilities emerge predictably with scale",
+            "C": "Training time decreases with model size",
+            "D": "Cost decreases with model size"
+          },
+          "correct_answer": "B",
+          "explanation": "The scaling hypothesis states that as models scale up (parameters, data, compute), capabilities emerge in predictable ways."
+        }
+      ]
+    },
+    "chapter_6": {
+      "title": "How LLMs Work: Transformers Architecture",
+      "questions": [
+        {
+          "id": "ch6_q1",
+          "question": "What is the primary advantage of transformers over RNNs?",
+          "options": {
+            "A": "Transformers are smaller",
+            "B": "Transformers can process all words in parallel",
+            "C": "Transformers don't need training data",
+            "D": "Transformers are easier to understand"
+          },
+          "correct_answer": "B",
+          "explanation": "Transformers process all words simultaneously using self-attention, enabling parallel computation and better handling of long-range dependencies."
+        },
+        {
+          "id": "ch6_q2",
+          "question": "What is the purpose of positional encodings?",
+          "options": {
+            "A": "To make the model faster",
+            "B": "To provide word order information",
+            "C": "To reduce memory usage",
+            "D": "To improve accuracy"
+          },
+          "correct_answer": "B",
+          "explanation": "Since transformers process all words simultaneously, positional encodings are added to preserve information about word order and position."
+        },
+        {
+          "id": "ch6_q3",
+          "question": "In self-attention, what do Query, Key, and Value represent?",
+          "options": {
+            "A": "Different types of input data",
+            "B": "Three different models",
+            "C": "Different aspects of attention computation",
+            "D": "Training, validation, and test sets"
+          },
+          "correct_answer": "C",
+          "explanation": "Query represents what a token is looking for, Key represents what it contains, and Value is the actual information. These are used to compute attention weights."
+        },
+        {
+          "id": "ch6_q4",
+          "question": "Why do transformers use multi-head attention?",
+          "options": {
+            "A": "To process multiple inputs simultaneously",
+            "B": "To capture different types of relationships",
+            "C": "To reduce computational cost",
+            "D": "To make the model smaller"
+          },
+          "correct_answer": "B",
+          "explanation": "Multiple attention heads allow the model to attend to different relationships simultaneously (e.g., syntactic, semantic, positional)."
+        },
+        {
+          "id": "ch6_q5",
+          "question": "Which architecture is best suited for text generation?",
+          "options": {
+            "A": "Encoder-only",
+            "B": "Decoder-only",
+            "C": "Encoder-decoder",
+            "D": "RNN"
+          },
+          "correct_answer": "B",
+          "explanation": "Decoder-only architectures (like GPT) are designed for autoregressive generation, processing left-to-right and predicting the next token."
+        }
+      ]
+    },
+    "chapter_7": {
+      "title": "Training and Pre-training LLMs",
+      "questions": [
+        {
+          "id": "ch7_q1",
+          "question": "What is the primary objective of pre-training?",
+          "options": {
+            "A": "To learn specific tasks",
+            "B": "To predict the next token in sequences",
+            "C": "To align with human preferences",
+            "D": "To reduce model size"
+          },
+          "correct_answer": "B",
+          "explanation": "Pre-training uses self-supervised learning where the model predicts the next token, learning general language patterns in the process."
+        },
+        {
+          "id": "ch7_q2",
+          "question": "Which of the following is NOT a common source of training data?",
+          "options": {
+            "A": "Web scrapes",
+            "B": "Books",
+            "C": "Private emails",
+            "D": "Wikipedia"
+          },
+          "correct_answer": "C",
+          "explanation": "Private emails are not used due to privacy concerns. Training data comes from publicly available sources."
+        },
+        {
+          "id": "ch7_q3",
+          "question": "Approximately how much does it cost to train a frontier model (100B+ parameters)?",
+          "options": {
+            "A": "$1,000 - $10,000",
+            "B": "$10,000 - $100,000",
+            "C": "$100,000 - $1M",
+            "D": "$1M - $100M+"
+          },
+          "correct_answer": "D",
+          "explanation": "Training frontier models requires thousands of GPUs running for months, costing millions to hundreds of millions of dollars."
+        },
+        {
+          "id": "ch7_q4",
+          "question": "What is the purpose of fine-tuning?",
+          "options": {
+            "A": "To make the model larger",
+            "B": "To align the model with human preferences",
+            "C": "To increase training time",
+            "D": "To add more parameters"
+          },
+          "correct_answer": "B",
+          "explanation": "Fine-tuning adapts the base model to be more helpful, following instructions and producing human-preferred outputs."
+        },
+        {
+          "id": "ch7_q5",
+          "question": "What does RLHF stand for?",
+          "options": {
+            "A": "Random Learning from Huge Files",
+            "B": "Reinforcement Learning from Human Feedback",
+            "C": "Rapid Language Half-Training Framework",
+            "D": "Real-time Language Handling Function"
+          },
+          "correct_answer": "B",
+          "explanation": "RLHF (Reinforcement Learning from Human Feedback) uses human preferences to guide model fine-tuning."
+        }
+      ]
+    },
+    "chapter_8": {
+      "title": "LLM Capabilities and Limitations",
+      "questions": [
+        {
+          "id": "ch8_q1",
+          "question": "Which task is LLMs BEST suited for?",
+          "options": {
+            "A": "Real-time stock trading decisions",
+            "B": "Writing first drafts of blog posts",
+            "C": "Diagnosing medical conditions",
+            "D": "Calculating complex mathematics"
+          },
+          "correct_answer": "B",
+          "explanation": "LLMs excel at text generation tasks like writing drafts. They should not be used for medical diagnosis, financial trading, or complex calculations without expert oversight."
+        },
+        {
+          "id": "ch8_q2",
+          "question": "What is hallucination in the context of LLMs?",
+          "options": {
+            "A": "When the model generates images instead of text",
+            "B": "When the model generates false information that sounds plausible",
+            "C": "When the model refuses to answer",
+            "D": "When the model takes too long to respond"
+          },
+          "correct_answer": "B",
+          "explanation": "Hallucination refers to LLMs confidently stating false information that sounds reasonable but is incorrect or made up."
+        },
+        {
+          "id": "ch8_q3",
+          "question": "Why do LLMs have knowledge cutoffs?",
+          "options": {
+            "A": "Because they forget information over time",
+            "B": "Because they are trained on static datasets up to a certain date",
+            "C": "Because of memory limitations",
+            "D": "Because of licensing restrictions"
+          },
+          "correct_answer": "B",
+          "explanation": "LLMs are trained on fixed datasets collected up to a specific date. They cannot know about events after that cutoff without external retrieval."
+        },
+        {
+          "id": "ch8_q4",
+          "question": "Which mitigation strategy is MOST effective for reducing hallucination?",
+          "options": {
+            "A": "Using a larger model",
+            "B": "Asking the model to be more confident",
+            "C": "Using retrieval-augmented generation (RAG)",
+            "D": "Providing more examples in the prompt"
+          },
+          "correct_answer": "C",
+          "explanation": "RAG grounds the model's responses in retrieved factual content, significantly reducing hallucination compared to relying solely on the model's internal knowledge."
+        },
+        {
+          "id": "ch8_q5",
+          "question": "When should you use human review with LLM outputs?",
+          "options": {
+            "A": "Never—LLMs are always accurate",
+            "B": "Only for creative writing",
+            "C": "For high-stakes decisions and sensitive applications",
+            "D": "Only when the model requests it"
+          },
+          "correct_answer": "C",
+          "explanation": "Human oversight is essential for high-stakes applications (medical, legal, financial) and sensitive content to catch errors, bias, and inappropriate outputs."
+        }
+      ]
+    },
+    "chapter_9": {
+      "title": "Introduction to Prompt Engineering",
+      "questions": [
+        {
+          "id": "ch9_q1",
+          "question": "What is prompt engineering?",
+          "options": {
+            "A": "Building prompts for nuclear weapons",
+            "B": "The practice of designing inputs to guide AI models toward desired outputs",
+            "C": "Writing code to automate prompt generation",
+            "D": "Engineering software for AI systems"
+          },
+          "correct_answer": "B",
+          "explanation": "Prompt engineering is the practice of crafting effective inputs (prompts) to get better outputs from AI models."
+        },
+        {
+          "id": "ch9_q2",
+          "question": "Which prompt is MOST likely to produce useful results?",
+          "options": {
+            "A": "Write about marketing",
+            "B": "Write 5 email subject lines for a product launch, targeting small business owners",
+            "C": "Do marketing stuff",
+            "D": "Help me"
+          },
+          "correct_answer": "B",
+          "explanation": "Specific prompts with clear tasks, context, and audience produce the most useful results."
+        },
+        {
+          "id": "ch9_q3",
+          "question": "What is few-shot prompting?",
+          "options": {
+            "A": "Using the model a few times",
+            "B": "Providing a few examples in the prompt to illustrate the desired pattern",
+            "C": "Prompting with only a few words",
+            "D": "Testing a few different prompts"
+          },
+          "correct_answer": "B",
+          "explanation": "Few-shot prompting involves providing examples in the prompt to show the model what pattern to follow."
+        },
+        {
+          "id": "ch9_q4",
+          "question": "Why should you assign a role in prompts?",
+          "options": {
+            "A": "To make the AI feel important",
+            "B": "To set the appropriate level, tone, and approach for the response",
+            "C": "To limit what the AI can say",
+            "D": "It doesn't serve any purpose"
+          },
+          "correct_answer": "B",
+          "explanation": "Role assignment (e.g., 'You are a high school teacher') guides the model to use appropriate language, depth, and style."
+        },
+        {
+          "id": "ch9_q5",
+          "question": "What is a common mistake in prompt engineering?",
+          "options": {
+            "A": "Being too specific",
+            "B": "Providing too much context",
+            "C": "Being vague and ambiguous",
+            "D": "Using examples"
+          },
+          "correct_answer": "C",
+          "explanation": "Vagueness leads to generic, unhelpful outputs. Specific, clear prompts produce better results."
+        }
+      ]
+    },
+    "chapter_10": {
+      "title": "Prompt Design Patterns and Techniques",
+      "questions": [
+        {
+          "id": "ch10_q1",
+          "question": "When is few-shot prompting MOST beneficial?",
+          "options": {
+            "A": "For simple tasks the model already knows well",
+            "B": "When you need consistent format or style",
+            "C": "When you want creative, varied outputs",
+            "D": "For yes/no questions"
+          },
+          "correct_answer": "B",
+          "explanation": "Few-shot prompting is most beneficial when you need the model to follow a specific format, style, or pattern consistently."
+        },
+        {
+          "id": "ch10_q2",
+          "question": "What is the primary benefit of chain-of-thought prompting?",
+          "options": {
+            "A": "It makes responses shorter",
+            "B": "It improves accuracy on complex reasoning tasks",
+            "C": "It reduces computational cost",
+            "D": "It makes the model faster"
+          },
+          "correct_answer": "B",
+          "explanation": "Chain-of-thought prompting forces systematic reasoning, which significantly improves accuracy on complex problems."
+        },
+        {
+          "id": "ch10_q3",
+          "question": "Which is the BEST example of role prompting?",
+          "options": {
+            "A": "Write an email",
+            "B": "You are a senior marketing director. Write a persuasive email to potential clients.",
+            "C": "Write a good email",
+            "D": "Email writing"
+          },
+          "correct_answer": "B",
+          "explanation": "Role prompting assigns a specific persona with expertise, which guides the tone, depth, and approach of the response."
+        },
+        {
+          "id": "ch10_q4",
+          "question": "How many examples should you typically provide in few-shot prompting?",
+          "options": {
+            "A": "1",
+            "B": "2-5",
+            "C": "10-20",
+            "D": "50+"
+          },
+          "correct_answer": "B",
+          "explanation": "2-5 examples typically provide enough pattern information without diminishing returns. More examples rarely add value."
+        },
+        {
+          "id": "ch10_q5",
+          "question": "What phrase triggers chain-of-thought reasoning?",
+          "options": {
+            "A": "Answer quickly",
+            "B": "Let's think step by step",
+            "C": "Give me the final answer",
+            "D": "No explanation needed"
+          },
+          "correct_answer": "B",
+          "explanation": "'Let's think step by step' is a well-known trigger that activates the model's reasoning capabilities."
+        }
+      ]
+    },
+    "chapter_11": {
+      "title": "Advanced Prompting Strategies",
+      "questions": [
+        {
+          "id": "ch11_q1",
+          "question": "What is the main advantage of Tree of Thoughts prompting?",
+          "options": {
+            "A": "It's faster than chain-of-thought",
+            "B": "It explores multiple approaches before committing to one",
+            "C": "It requires fewer tokens",
+            "D": "It works only for math problems"
+          },
+          "correct_answer": "B",
+          "explanation": "Tree of Thoughts explores multiple reasoning paths and evaluates each before selecting the best approach."
+        },
+        {
+          "id": "ch11_q2",
+          "question": "What problem does RAG prompting solve?",
+          "options": {
+            "A": "Makes responses shorter",
+            "B": "Provides access to current and domain-specific knowledge",
+            "C": "Reduces API costs",
+            "D": "Makes the model run faster"
+          },
+          "correct_answer": "B",
+          "explanation": "RAG grounds responses in retrieved documents, providing access to current information and reducing hallucination."
+        },
+        {
+          "id": "ch11_q3",
+          "question": "In multi-turn conversations, what is crucial for coherence?",
+          "options": {
+            "A": "Using the same tone throughout",
+            "B": "Maintaining and referencing context from previous turns",
+            "C": "Keeping responses the same length",
+            "D": "Never asking clarifying questions"
+          },
+          "correct_answer": "B",
+          "explanation": "Maintaining context across turns is essential for coherent multi-turn conversations."
+        },
+        {
+          "id": "ch11_q4",
+          "question": "When should you decompose a task?",
+          "options": {
+            "A": "Always, for every task",
+            "B": "When the task is complex and can be broken into clearer subtasks",
+            "C": "Never, let the model figure it out",
+            "D": "Only for coding tasks"
+          },
+          "correct_answer": "B",
+          "explanation": "Task decomposition is most valuable for complex tasks that benefit from structured, step-by-step approaches."
+        },
+        {
+          "id": "ch11_q5",
+          "question": "What is prompt chaining?",
+          "options": {
+            "A": "Using multiple LLMs simultaneously",
+            "B": "Connecting prompts where output from one becomes input to the next",
+            "C": "Writing prompts in a list",
+            "D": "Repeating the same prompt multiple times"
+          },
+          "correct_answer": "B",
+          "explanation": "Prompt chaining executes multiple prompts in sequence, with each step's output feeding into the next."
+        }
+      ]
+    },
+    "chapter_12": {
+      "title": "Prompt Optimization and Best Practices",
+      "questions": [
+        {
+          "id": "ch12_q1",
+          "question": "What is the BEST way to evaluate prompt effectiveness?",
+          "options": {
+            "A": "Only check if output looks good",
+            "B": "Use multiple metrics: accuracy, relevance, consistency",
+            "C": "Count the tokens used",
+            "D": "Ask the model to evaluate itself"
+          },
+          "correct_answer": "B",
+          "explanation": "Comprehensive evaluation uses multiple metrics to assess different aspects of prompt quality."
+        },
+        {
+          "id": "ch12_q2",
+          "question": "Why should you version control prompts?",
+          "options": {
+            "A": "To make them load faster",
+            "B": "To track changes and enable rollback",
+            "C": "To reduce token count",
+            "D": "Version control doesn't help with prompts"
+          },
+          "correct_answer": "B",
+          "explanation": "Version control tracks prompt changes, enables comparison, and allows rollback if quality decreases."
+        },
+        {
+          "id": "ch12_q3",
+          "question": "What is prompt injection?",
+          "options": {
+            "A": "Adding more examples to a prompt",
+            "B": "Malicious input that overrides system instructions",
+            "C": "Improving prompt quality",
+            "D": "Testing multiple prompts"
+          },
+          "correct_answer": "B",
+          "explanation": "Prompt injection is when user input attempts to override or bypass the system's instructions."
+        },
+        {
+          "id": "ch12_q4",
+          "question": "How can you optimize prompt costs?",
+          "options": {
+            "A": "Use more words for clarity",
+            "B": "Compress prompts and cache frequent responses",
+            "C": "Always use the most expensive model",
+            "D": "Run prompts multiple times"
+          },
+          "correct_answer": "B",
+          "explanation": "Cost optimization includes compressing prompts (fewer tokens) and caching responses for repeated requests."
+        },
+        {
+          "id": "ch12_q5",
+          "question": "What is a sign of over-engineered prompts?",
+          "options": {
+            "A": "Clear, concise instructions",
+            "B": "Excessive role-playing and unnecessary constraints",
+            "C": "Including examples",
+            "D": "Specifying output format"
+          },
+          "correct_answer": "B",
+          "explanation": "Over-engineering adds unnecessary complexity. Simple, clear prompts often work best."
+        }
+      ]
+    },
+    "chapter_13": {
+      "title": "What is RAG and Why It Matters",
+      "questions": [
+        {
+          "id": "ch13_q1",
+          "question": "What problem does RAG primarily solve?",
+          "options": {
+            "A": "Makes LLMs run faster",
+            "B": "Reduces hallucination and provides current knowledge",
+            "C": "Reduces API costs",
+            "D": "Makes models smaller"
+          },
+          "correct_answer": "B",
+          "explanation": "RAG addresses hallucination by grounding responses in retrieved documents and provides access to current information."
+        },
+        {
+          "id": "ch13_q2",
+          "question": "When should you choose RAG over fine-tuning?",
+          "options": {
+            "A": "When you need a specific output format",
+            "B": "When you need current, up-to-date information",
+            "C": "When you have unlimited budget",
+            "D": "When you want to change the model's behavior"
+          },
+          "correct_answer": "B",
+          "explanation": "RAG is ideal when you need current information because you can update the knowledge base without retraining."
+        },
+        {
+          "id": "ch13_q3",
+          "question": "What is a key benefit of RAG for enterprise applications?",
+          "options": {
+            "A": "Faster model training",
+            "B": "Auditable responses with citations",
+            "C": "Smaller model size",
+            "D": "No need for documents"
+          },
+          "correct_answer": "B",
+          "explanation": "RAG provides citations and traceability, which is crucial for enterprise compliance and verification."
+        },
+        {
+          "id": "ch13_q4",
+          "question": "What does a hybrid RAG + fine-tuning approach provide?",
+          "options": {
+            "A": "Only the benefits of RAG",
+            "B": "Domain expertise from fine-tuning + current knowledge from RAG",
+            "C": "Higher costs with no benefits",
+            "D": "Slower but more accurate responses"
+          },
+          "correct_answer": "B",
+          "explanation": "Hybrid approach combines domain-specific behavior (fine-tuning) with current, grounded knowledge (RAG)."
+        },
+        {
+          "id": "ch13_q5",
+          "question": "Which is NOT a typical RAG use case?",
+          "options": {
+            "A": "Customer support Q&A",
+            "B": "Enterprise search",
+            "C": "Generating creative poetry",
+            "D": "Legal document analysis"
+          },
+          "correct_answer": "C",
+          "explanation": "Creative poetry doesn't benefit from retrieved documents. RAG excels at factual Q&A and information retrieval tasks."
+        }
+      ]
+    },
+    "chapter_14": {
+      "title": "Building a RAG System",
+      "questions": [
+        {
+          "id": "ch14_q1",
+          "question": "What is the first step in the RAG indexing pipeline?",
+          "options": {
+            "A": "Generate embeddings",
+            "B": "Parse and load documents",
+            "C": "Search for relevant content",
+            "D": "Generate response"
+          },
+          "correct_answer": "B",
+          "explanation": "Document parsing/loading is the first step, followed by chunking, embedding, and storage."
+        },
+        {
+          "id": "ch14_q2",
+          "question": "Why is chunking important in RAG systems?",
+          "options": {
+            "A": "It makes documents shorter",
+            "B": "It enables retrieval of relevant portions rather than entire documents",
+            "C": "It reduces embedding costs",
+            "D": "It's not important"
+          },
+          "correct_answer": "B",
+          "explanation": "Chunking allows retrieval of specific relevant sections rather than entire documents, improving precision."
+        },
+        {
+          "id": "ch14_q3",
+          "question": "What does a vector store do?",
+          "options": {
+            "A": "Stores raw text documents",
+            "B": "Stores embeddings and enables similarity search",
+            "C": "Generates embeddings",
+            "D": "Creates document chunks"
+          },
+          "correct_answer": "B",
+          "explanation": "Vector stores store embeddings and provide efficient similarity search capabilities."
+        },
+        {
+          "id": "ch14_q4",
+          "question": "What is hybrid search?",
+          "options": {
+            "A": "Using multiple LLMs",
+            "B": "Combining semantic similarity with keyword search",
+            "C": "Searching multiple vector stores",
+            "D": "Using both RAG and fine-tuning"
+          },
+          "correct_answer": "B",
+          "explanation": "Hybrid search combines semantic (vector) similarity with traditional keyword matching for better retrieval."
+        },
+        {
+          "id": "ch14_q5",
+          "question": "In what order do RAG querying steps occur?",
+          "options": {
+            "A": "Generate → Retrieve → Embed → Answer",
+            "B": "Embed → Retrieve → Generate → Answer",
+            "C": "Retrieve → Embed → Generate → Answer",
+            "D": "Answer → Generate → Retrieve → Embed"
+          },
+          "correct_answer": "B",
+          "explanation": "Query is embedded, used to retrieve documents, then the LLM generates an answer from retrieved content."
+        }
+      ]
+    },
+    "chapter_15": {
+      "title": "Vector Databases and Embeddings",
+      "questions": [
+        {
+          "id": "ch15_q1",
+          "question": "What do vector embeddings represent?",
+          "options": {
+            "A": "The length of text",
+            "B": "The meaning of data in numerical form",
+            "C": "The number of words",
+            "D": "The document format"
+          },
+          "correct_answer": "B",
+          "explanation": "Embeddings capture semantic meaning as vectors in high-dimensional space."
+        },
+        {
+          "id": "ch15_q2",
+          "question": "Which distance metric is MOST common for text embeddings?",
+          "options": {
+            "A": "Euclidean distance",
+            "B": "Manhattan distance",
+            "C": "Cosine similarity",
+            "D": "Hamming distance"
+          },
+          "correct_answer": "C",
+          "explanation": "Cosine similarity measures the angle between vectors, making it ideal for text where direction (meaning) matters more than magnitude."
+        },
+        {
+          "id": "ch15_q3",
+          "question": "What is the main advantage of vector databases over traditional databases?",
+          "options": {
+            "A": "They store more data",
+            "B": "They're cheaper",
+            "C": "They enable fast similarity search",
+            "D": "They're easier to use"
+          },
+          "correct_answer": "C",
+          "explanation": "Vector databases use specialized indexes (HNSW, IVF) that make similarity search 1000x faster than scanning all rows."
+        },
+        {
+          "id": "ch15_q4",
+          "question": "Which embedding model is FREE and runs locally?",
+          "options": {
+            "A": "OpenAI text-embedding-3-small",
+            "B": "OpenAI text-embedding-3-large",
+            "C": "Sentence Transformers all-MiniLM-L6-v2",
+            "D": "Cohere embed-english-v3.0"
+          },
+          "correct_answer": "C",
+          "explanation": "Sentence Transformers models are open source and run locally without API costs."
+        },
+        {
+          "id": "ch15_q5",
+          "question": "What does hybrid search combine?",
+          "options": {
+            "A": "Multiple vector databases",
+            "B": "Vector similarity and keyword search",
+            "C": "Different embedding models",
+            "D": "Multiple queries"
+          },
+          "correct_answer": "B",
+          "explanation": "Hybrid search combines semantic (vector) similarity with traditional keyword matching for better retrieval quality."
+        }
+      ]
+    },
+    "chapter_16": {
+      "title": "RAG Best Practices and Optimization",
+      "questions": [
+        {
+          "id": "ch16_q1",
+          "question": "What is the typical optimal chunk size for RAG?",
+          "options": {
+            "A": "50-100 tokens",
+            "B": "200-500 tokens",
+            "C": "1000-2000 tokens",
+            "D": "5000+ tokens"
+          },
+          "correct_answer": "B",
+          "explanation": "200-500 tokens balances context preservation with retrieval efficiency."
+        },
+        {
+          "id": "ch16_q2",
+          "question": "Why use reranking in RAG?",
+          "options": {
+            "A": "To make responses longer",
+            "B": "To improve relevance ordering of retrieved documents",
+            "C": "To reduce costs",
+            "D": "To speed up retrieval"
+          },
+          "correct_answer": "B",
+          "explanation": "Reranking uses more sophisticated scoring to ensure the most relevant documents are used for generation."
+        },
+        {
+          "id": "ch16_q3",
+          "question": "What is the benefit of caching in RAG?",
+          "options": {
+            "A": "Better accuracy",
+            "B": "Reduced latency and costs for repeated queries",
+            "C": "More comprehensive answers",
+            "D": "Better citations"
+          },
+          "correct_answer": "B",
+          "explanation": "Caching serves repeated queries instantly without embedding, retrieval, or generation costs."
+        },
+        {
+          "id": "ch16_q4",
+          "question": "What should you do if retrieval returns irrelevant documents?",
+          "options": {
+            "A": "Increase chunk size",
+            "B": "Try a different embedding model or use query expansion",
+            "C": "Decrease top_k",
+            "D": "Use a larger LLM"
+          },
+          "correct_answer": "B",
+          "explanation": "Irrelevant retrieval often indicates embedding-model mismatch or poor query formulation."
+        },
+        {
+          "id": "ch16_q5",
+          "question": "What temperature setting is best for consistent RAG responses?",
+          "options": {
+            "A": "0.0 (deterministic)",
+            "B": "0.5 (balanced)",
+            "C": "0.7 (creative)",
+            "D": "1.0 (maximum creativity)"
+          },
+          "correct_answer": "A",
+          "explanation": "Temperature 0.0 produces deterministic outputs, ensuring consistent answers for the same query."
+        }
+      ]
+    },
+    "chapter_17": {
+      "title": "Introduction to Fine-tuning",
+      "questions": [
+        {
+          "id": "ch17_q1",
+          "question": "What is the primary purpose of fine-tuning?",
+          "options": {
+            "A": "To make models larger",
+            "B": "To adapt general models to specific domains or tasks",
+            "C": "To reduce model size",
+            "D": "To make models faster"
+          },
+          "correct_answer": "B",
+          "explanation": "Fine-tuning adapts pre-trained models to perform better on specific tasks or domains."
+        },
+        {
+          "id": "ch17_q2",
+          "question": "When should you NOT fine-tune?",
+          "options": {
+            "A": "When you need domain-specific language",
+            "B": "When you have 10,000 examples",
+            "C": "When you need current, rapidly changing information",
+            "D": "When you need consistent style"
+          },
+          "correct_answer": "C",
+          "explanation": "For rapidly changing information, use RAG instead. Fine-tuning is static once trained."
+        },
+        {
+          "id": "ch17_q3",
+          "question": "What is LoRA?",
+          "options": {
+            "A": "A type of full fine-tuning",
+            "B": "A parameter-efficient fine-tuning method",
+            "C": "A data collection technique",
+            "D": "A model evaluation metric"
+          },
+          "correct_answer": "B",
+          "explanation": "LoRA (Low-Rank Adaptation) is a PEFT method that updates only small matrices, reducing parameters by 1000x."
+        },
+        {
+          "id": "ch17_q4",
+          "question": "What is the MINIMUM recommended examples for LoRA fine-tuning?",
+          "options": {
+            "A": "10",
+            "B": "100",
+            "C": "1,000",
+            "D": "10,000"
+          },
+          "correct_answer": "B",
+          "explanation": "LoRA can work with as few as 100 examples, though 1,000+ is recommended for better results."
+        },
+        {
+          "id": "ch17_q5",
+          "question": "What is catastrophic forgetting?",
+          "options": {
+            "A": "When the model forgets training data",
+            "B": "When fine-tuning causes loss of general capabilities",
+            "C": "When the model becomes too slow",
+            "D": "When training takes too long"
+          },
+          "correct_answer": "B",
+          "explanation": "Catastrophic forgetting occurs when fine-tuning causes the model to lose capabilities it had before fine-tuning."
+        }
+      ]
+    },
+    "chapter_18": {
+      "title": "When to Fine-tune vs. Prompt Engineering",
+      "questions": [
+        {
+          "id": "ch18_q1",
+          "question": "When is prompt engineering the BETTER choice?",
+          "options": {
+            "A": "When you have 10,000 training examples",
+            "B": "When you need to deploy in 2 days with no data",
+            "C": "When you need 95% accuracy on specialized tasks",
+            "D": "When you have $50,000 budget"
+          },
+          "correct_answer": "B",
+          "explanation": "Prompt engineering is ideal for rapid deployment with no training data."
+        },
+        {
+          "id": "ch18_q2",
+          "question": "What is a key advantage of fine-tuning over prompt engineering?",
+          "options": {
+            "A": "Faster deployment",
+            "B": "Lower cost",
+            "C": "Better consistency and domain expertise",
+            "D": "More flexibility"
+          },
+          "correct_answer": "C",
+          "explanation": "Fine-tuning provides consistent behavior and domain-specific knowledge that prompting can't match."
+        },
+        {
+          "id": "ch18_q3",
+          "question": "When should you use a hybrid approach?",
+          "options": {
+            "A": "Never, pick one or the other",
+            "B": "When you need both domain expertise and flexibility",
+            "C": "When you have no budget",
+            "D": "When you need immediate deployment"
+          },
+          "correct_answer": "B",
+          "explanation": "Hybrid approaches combine fine-tuning (for domain expertise) with prompting (for flexibility)."
+        },
+        {
+          "id": "ch18_q4",
+          "question": "Which factor MOST strongly suggests prompt engineering?",
+          "options": {
+            "A": "High accuracy requirements",
+            "B": "Specialized domain",
+            "C": "Frequently changing requirements",
+            "D": "Large budget"
+          },
+          "correct_answer": "C",
+          "explanation": "Frequently changing requirements favor prompt engineering's flexibility over fine-tuning's fixed nature."
+        },
+        {
+          "id": "ch18_q5",
+          "question": "What is the break-even point for fine-tuning investment?",
+          "options": {
+            "A": "When training is complete",
+            "B": "When cost savings from self-hosting offset the training cost",
+            "C": "After 1,000 queries",
+            "D": "There is no break-even point"
+          },
+          "correct_answer": "B",
+          "explanation": "The break-even point is when the cost savings from fine-tuning (e.g., self-hosting) offset the initial training investment."
+        }
+      ]
+    },
+    "chapter_19": {
+      "title": "Fine-tuning Methods and Techniques",
+      "questions": [
+        {
+          "id": "ch19_q1",
+          "question": "What percentage of parameters does LoRA typically update?",
+          "options": {
+            "A": "100%",
+            "B": "50%",
+            "C": "10%",
+            "D": "0.1-1%"
+          },
+          "correct_answer": "D",
+          "explanation": "LoRA updates only 0.1-1% of parameters through low-rank decomposition."
+        },
+        {
+          "id": "ch19_q2",
+          "question": "What is the main benefit of QLoRA over LoRA?",
+          "options": {
+            "A": "Better accuracy",
+            "B": "Lower memory usage through quantization",
+            "C": "Faster training",
+            "D": "Simpler implementation"
+          },
+          "correct_answer": "B",
+          "explanation": "QLoRA combines LoRA with 4-bit quantization, reducing memory usage by ~50% compared to LoRA."
+        },
+        {
+          "id": "ch19_q3",
+          "question": "Which LoRA hyperparameter controls adapter size?",
+          "options": {
+            "A": "lora_alpha",
+            "B": "r (rank)",
+            "C": "learning_rate",
+            "D": "batch_size"
+          },
+          "correct_answer": "B",
+          "explanation": "The rank (r) parameter controls the size of LoRA adapters. Higher r = more parameters."
+        },
+        {
+          "id": "ch19_q4",
+          "question": "What GPU memory is needed for QLoRA fine-tuning of a 7B model?",
+          "options": {
+            "A": "80GB",
+            "B": "40GB",
+            "C": "24GB",
+            "D": "~12GB"
+          },
+          "correct_answer": "D",
+          "explanation": "QLoRA enables fine-tuning 7B models on ~12GB GPU memory through 4-bit quantization."
+        },
+        {
+          "id": "ch19_q5",
+          "question": "When should you use full fine-tuning over LoRA?",
+          "options": {
+            "A": "Always - it's the best",
+            "B": "When you need maximum performance and have resources",
+            "C": "When you have limited memory",
+            "D": "When you need fast training"
+          },
+          "correct_answer": "B",
+          "explanation": "Full fine-tuning provides best performance but requires significant resources. Use when performance is critical and resources allow."
+        }
+      ]
+    },
+    "chapter_20": {
+      "title": "Evaluating Fine-tuned Models",
+      "questions": [
+        {
+          "id": "ch20_q1",
+          "question": "What does perplexity measure?",
+          "options": {
+            "A": "How confused users are",
+            "B": "How well model predicts test data",
+            "C": "Model size",
+            "D": "Training time"
+          },
+          "correct_answer": "B",
+          "explanation": "Perplexity measures how well a probability model predicts a sample. Lower is better."
+        },
+        {
+          "id": "ch20_q2",
+          "question": "When should you use F1 score instead of accuracy?",
+          "options": {
+            "A": "Always",
+            "B": "When you have class imbalance",
+            "C": "For generation tasks",
+            "D": "Never"
+          },
+          "correct_answer": "B",
+          "explanation": "F1 score is better for imbalanced datasets where accuracy can be misleading."
+        },
+        {
+          "id": "ch20_q3",
+          "question": "What is the purpose of a hold-out test set?",
+          "options": {
+            "A": "To train the model",
+            "B": "To provide unbiased evaluation",
+            "C": "To increase dataset size",
+            "D": "To speed up training"
+          },
+          "correct_answer": "B",
+          "explanation": "Hold-out test sets provide unbiased evaluation on data the model never saw during training."
+        },
+        {
+          "id": "ch20_q4",
+          "question": "What BLEU score range indicates 'Good' quality?",
+          "options": {
+            "A": "< 0.2",
+            "B": "0.2-0.4",
+            "C": "0.4-0.6",
+            "D": "> 0.8"
+          },
+          "correct_answer": "C",
+          "explanation": "BLEU scores of 0.4-0.6 are considered good, though this varies by task."
+        },
+        {
+          "id": "ch20_q5",
+          "question": "What should you do if production accuracy drops below threshold?",
+          "options": {
+            "A": "Ignore it",
+            "B": "Send alert and investigate",
+            "C": "Immediately retrain",
+            "D": "Shut down the system"
+          },
+          "correct_answer": "B",
+          "explanation": "Set up alerts for threshold violations, then investigate the cause before taking action."
+        }
+      ]
+    },
+    "chapter_21": {
+      "title": "Designing AI-Native Applications",
+      "questions": [
+        {
+          "id": "ch21_q1",
+          "question": "What is the key principle of AI-native design?",
+          "options": {
+            "A": "Replace humans with AI",
+            "B": "Human-AI collaboration",
+            "C": "Hide AI limitations",
+            "D": "Maximize automation"
+          },
+          "correct_answer": "B",
+          "explanation": "AI-native design focuses on collaboration where AI augments human capabilities."
+        },
+        {
+          "id": "ch21_q2",
+          "question": "Why stream AI responses?",
+          "options": {
+            "A": "To save bandwidth",
+            "B": "To improve perceived performance and engagement",
+            "C": "To reduce costs",
+            "D": "It's required by APIs"
+          },
+          "correct_answer": "B",
+          "explanation": "Streaming makes AI feel more responsive and engaging by showing output as it generates."
+        },
+        {
+          "id": "ch21_q3",
+          "question": "What should you do when AI is uncertain?",
+          "options": {
+            "A": "Always act confident",
+            "B": "Show confidence indicators and caveats",
+            "C": "Refuse to answer",
+            "D": "Make something up"
+          },
+          "correct_answer": "B",
+          "explanation": "Transparency about uncertainty helps users make informed decisions about trusting AI output."
+        },
+        {
+          "id": "ch21_q4",
+          "question": "What is an 'escape hatch' in AI design?",
+          "options": {
+            "A": "A way to exit the application",
+            "B": "Option to bypass or override AI",
+            "C": "A bug fix mechanism",
+            "D": "A feedback form"
+          },
+          "correct_answer": "B",
+          "explanation": "Escape hatches let users opt-out of AI assistance or override AI decisions."
+        },
+        {
+          "id": "ch21_q5",
+          "question": "How should you handle AI hallucinations?",
+          "options": {
+            "A": "Ignore them",
+            "B": "Cite sources and allow verification",
+            "C": "Disable the AI",
+            "D": "Blame the user"
+          },
+          "correct_answer": "B",
+          "explanation": "Citing sources and enabling verification helps users identify and correct hallucinations."
+        }
+      ]
+    },
+    "chapter_22": {
+      "title": "Building with APIs",
+      "questions": [
+        {
+          "id": "ch22_q1",
+          "question": "Which model is MOST cost-effective for simple tasks?",
+          "options": {
+            "A": "GPT-4",
+            "B": "GPT-3.5 Turbo",
+            "C": "Claude Opus",
+            "D": "Any model costs the same"
+          },
+          "correct_answer": "B",
+          "explanation": "GPT-3.5 Turbo is significantly cheaper than GPT-4 while still handling simple tasks well."
+        },
+        {
+          "id": "ch22_q2",
+          "question": "What is the best practice for handling rate limits?",
+          "options": {
+            "A": "Stop the application",
+            "B": "Retry immediately",
+            "C": "Retry with exponential backoff",
+            "D": "Switch to a different API key"
+          },
+          "correct_answer": "C",
+          "explanation": "Exponential backoff (waiting progressively longer) is the standard approach for rate limit handling."
+        },
+        {
+          "id": "ch22_q3",
+          "question": "How can you reduce API costs?",
+          "options": {
+            "A": "Use longer prompts",
+            "B": "Cache frequent responses",
+            "C": "Always use the most expensive model",
+            "D": "Make more requests"
+          },
+          "correct_answer": "B",
+          "explanation": "Caching avoids redundant API calls for the same inputs, reducing costs significantly."
+        },
+        {
+          "id": "ch22_q4",
+          "question": "What should you do if all API providers fail?",
+          "options": {
+            "A": "Crash the application",
+            "B": "Return a graceful error message",
+            "C": "Keep retrying forever",
+            "D": "Ignore the error"
+          },
+          "correct_answer": "B",
+          "explanation": "Always handle failures gracefully with clear error messages to users."
+        },
+        {
+          "id": "ch22_q5",
+          "question": "Which factor is LEAST important when choosing an API provider?",
+          "options": {
+            "A": "Pricing",
+            "B": "Rate limits",
+            "C": "Model capabilities",
+            "D": "Company logo"
+          },
+          "correct_answer": "D",
+          "explanation": "The company logo has no impact on your application's performance or costs."
+        }
+      ]
+    },
+    "chapter_23": {
+      "title": "Deployment and Production Considerations",
+      "questions": [
+        {
+          "id": "ch23_q1",
+          "question": "What uptime does 99.9% SLO represent?",
+          "options": {
+            "A": "3.65 days downtime/year",
+            "B": "8.76 hours downtime/year",
+            "C": "52.6 minutes downtime/year",
+            "D": "5.26 minutes downtime/year"
+          },
+          "correct_answer": "B",
+          "explanation": "99.9% uptime equals approximately 8.76 hours of allowed downtime per year."
+        },
+        {
+          "id": "ch23_q2",
+          "question": "What is the benefit of blue-green deployment?",
+          "options": {
+            "A": "Cheaper infrastructure",
+            "B": "Zero downtime deployments",
+            "C": "Faster builds",
+            "D": "Simpler code"
+          },
+          "correct_answer": "B",
+          "explanation": "Blue-green deployment allows switching traffic between versions instantly, enabling zero-downtime updates."
+        },
+        {
+          "id": "ch23_q3",
+          "question": "What metric is MOST important for AI API monitoring?",
+          "options": {
+            "A": "Number of deployments",
+            "B": "Error rate and latency",
+            "C": "Code coverage",
+            "D": "Number of features"
+          },
+          "correct_answer": "B",
+          "explanation": "Error rate and latency directly impact user experience and should be closely monitored."
+        },
+        {
+          "id": "ch23_q4",
+          "question": "How does caching help AI applications?",
+          "options": {
+            "A": "Makes AI smarter",
+            "B": "Reduces API costs and latency for repeated requests",
+            "C": "Increases model accuracy",
+            "D": "Reduces code complexity"
+          },
+          "correct_answer": "B",
+          "explanation": "Caching avoids redundant API calls, reducing both costs and response times."
+        },
+        {
+          "id": "ch23_q5",
+          "question": "What is horizontal scaling?",
+          "options": {
+            "A": "Making servers more powerful",
+            "B": "Adding more server instances",
+            "C": "Reducing server count",
+            "D": "Scaling database only"
+          },
+          "correct_answer": "B",
+          "explanation": "Horizontal scaling adds more instances to handle increased load, vs. vertical scaling which makes individual servers more powerful."
+        }
+      ]
+    },
+    "chapter_24": {
+      "title": "Ethics, Safety, and Responsible AI",
+      "questions": [
+        {
+          "id": "ch24_q1",
+          "question": "Which is NOT a core AI ethics principle?",
+          "options": {
+            "A": "Fairness",
+            "B": "Transparency",
+            "C": "Profitability",
+            "D": "Accountability"
+          },
+          "correct_answer": "C",
+          "explanation": "Profitability is a business goal, not an ethics principle. Core principles include fairness, transparency, accountability, privacy, and safety."
+        },
+        {
+          "id": "ch24_q2",
+          "question": "What is historical bias?",
+          "options": {
+            "A": "Bias in old software versions",
+            "B": "Training data reflecting historical inequalities",
+            "C": "Bias against historians",
+            "D": "Bias in historical documents only"
+          },
+          "correct_answer": "B",
+          "explanation": "Historical bias occurs when training data reflects past discrimination or inequalities, which the AI then learns and perpetuates."
+        },
+        {
+          "id": "ch24_q3",
+          "question": "What should you do if AI generates harmful content?",
+          "options": {
+            "A": "Ignore it",
+            "B": "Block it and log for review",
+            "C": "Show it with a warning",
+            "D": "Blame the user"
+          },
+          "correct_answer": "B",
+          "explanation": "Harmful content should be blocked from reaching users and logged for review and system improvement."
+        },
+        {
+          "id": "ch24_q4",
+          "question": "Why is diverse team representation important?",
+          "options": {
+            "A": "It's required by law",
+            "B": "Different perspectives help identify biases and harms",
+            "C": "It makes hiring easier",
+            "D": "It reduces costs"
+          },
+          "correct_answer": "B",
+          "explanation": "Diverse teams bring different perspectives that help identify potential biases, harms, and edge cases that homogeneous teams might miss."
+        },
+        {
+          "id": "ch24_q5",
+          "question": "What is the purpose of audit trails?",
+          "options": {
+            "A": "To slow down the system",
+            "B": "To enable accountability and investigation",
+            "C": "To increase storage costs",
+            "D": "To make the code complex"
+          },
+          "correct_answer": "B",
+          "explanation": "Audit trails enable accountability, investigation of issues, and continuous improvement by recording all AI interactions."
+        }
+      ]
+    }
+  }
+}
