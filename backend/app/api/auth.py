@@ -7,6 +7,7 @@ Endpoints for authentication using Supabase Auth.
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
+from uuid import uuid4
 import uuid
 
 from app.database import get_db
