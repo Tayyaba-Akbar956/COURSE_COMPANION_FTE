@@ -80,10 +80,10 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
 
         # Generate JWT tokens
         logger.info("Generating JWT tokens...")
-        access_token = create_access_token(
+        access_token = await create_access_token(
             data={"sub": str(user_id), "email": request.email}
         )
-        refresh_token = create_refresh_token(
+        refresh_token = await create_refresh_token(
             data={"sub": str(user_id)}
         )
         logger.info("Tokens generated successfully")
