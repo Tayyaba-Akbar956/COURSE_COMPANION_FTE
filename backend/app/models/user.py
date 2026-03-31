@@ -45,9 +45,9 @@ class User(SQLModel, table=True):
 class Subscription(SQLModel, table=True):
     """User subscription model"""
     __tablename__ = "subscriptions"
-    
-    id: str = Field(default_factory=lambda: str(uuid4()), primary_key=True)
-    user_id: str = Field(..., unique=True, foreign_key="users.id", index=True)
+
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    user_id: UUID = Field(..., unique=True, foreign_key="users.id", index=True)
     tier: SubscriptionTier = Field(default=SubscriptionTier.FREE)
     status: SubscriptionStatus = Field(default=SubscriptionStatus.FREE)
     started_at: datetime = Field(default_factory=datetime.utcnow)
@@ -56,7 +56,7 @@ class Subscription(SQLModel, table=True):
     stripe_subscription_id: Optional[str] = Field(None, max_length=255)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
-    
+
     # Relationship - no back_populates to avoid circular dependency
     user: Optional[User] = Relationship(
         sa_relationship_kwargs={"foreign_keys": "Subscription.user_id"}

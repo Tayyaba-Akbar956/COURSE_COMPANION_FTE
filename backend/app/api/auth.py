@@ -68,7 +68,7 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
         # Create free subscription
         logger.info(f"Creating subscription for user: {user_id}")
         subscription = Subscription(
-            user_id=str(user_id),  # Convert UUID to string for subscription
+            user_id=user_id,  # UUID type
             tier=SubscriptionTier.FREE,
             started_at=datetime.utcnow()
         )
