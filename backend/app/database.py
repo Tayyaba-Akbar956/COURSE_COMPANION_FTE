@@ -12,16 +12,44 @@ from typing import AsyncGenerator
 from app.config import settings
 
 
+def get_async_database_url():
+    """Convert DATABASE_URL to async-compatible format"""
+    url = settings.DATABASE_URL
+    # Handle different URL formats
+    if url.startswith("postgresql://"):
+        return url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    elif url.startswith("postgresql+psycopg2://"):
+        return url.replace("postgresql+psycopg2://", "postgresql+asyncpg://", 1)
+    elif url.startswith("postgresql+asyncpg://"):
+        return url  # Already correct
+    else:
+        return url  # Return as-is for SQLite or other databases
+
+
+def get_sync_database_url():
+    """Convert DATABASE_URL to sync-compatible format"""
+    url = settings.DATABASE_URL
+    # Remove async prefixes for sync operations
+    if url.startswith("postgresql+asyncpg://"):
+        return url.replace("postgresql+asyncpg://", "postgresql://", 1)
+    elif url.startswith("postgresql+psycopg2://"):
+        return url.replace("postgresql+psycopg2://", "postgresql://", 1)
+    elif url.startswith("postgresql://"):
+        return url  # Already correct
+    else:
+        return url  # Return as-is for SQLite or other databases
+
+
 # Create async engine
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    get_async_database_url(),
     echo=settings.is_development,  # Log SQL queries in development
     pool_pre_ping=True,  # Verify connections before use
 )
 
 # Create sync engine for migrations
 sync_engine = create_engine(
-    settings.DATABASE_URL.replace("+aiosqlite", ""),
+    get_sync_database_url(),
     echo=settings.is_development,
 )
 
