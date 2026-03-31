@@ -74,7 +74,7 @@ async def create_db_and_tables():
     """Create database tables"""
     async with engine.begin() as conn:
         # Import all models to ensure they're registered with SQLModel
-        from app.models import user, chapter, module, quiz, progress, achievement
+        from app.models import User, Module, Chapter, ChapterProgress, QuizAttempt, QuizQuestion, Achievement, UserAchievement, DailyStreak
         await conn.run_sync(SQLModel.metadata.create_all)
 
 
