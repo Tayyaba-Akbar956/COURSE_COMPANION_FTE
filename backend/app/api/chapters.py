@@ -89,9 +89,11 @@ async def list_chapters(
     request_id = str(uuid.uuid4())
 
     try:
-        # Build query
+        # Build query with joinedload for module relationship
         from sqlalchemy import select
-        query = select(ChapterModel).join(Module).order_by(Module.module_order, ChapterModel.order_in_module)
+        from sqlalchemy.orm import selectinload
+        
+        query = select(ChapterModel).options(selectinload(ChapterModel.module)).join(Module).order_by(Module.module_order, ChapterModel.order_in_module)
 
         # Apply filters
         if module:
@@ -120,7 +122,7 @@ async def list_chapters(
         for chapter in chapters:
             # Get module title safely
             module_title = "Unknown"
-            if hasattr(chapter, 'module') and chapter.module:
+            if chapter.module:
                 module_title = chapter.module.title
             
             chapter_items.append(ChapterListItem(
