@@ -44,55 +44,76 @@ async def load_quiz_bank(
     Admin only endpoint.
     """
     import httpx
+    import logging
     
-    # Read quiz bank from GitHub raw URL
-    quiz_bank_url = "https://raw.githubusercontent.com/Tayyaba-Akbar956/COURSE_COMPANION_FTE/main/content/generative-ai-fundamentals/quiz-bank.json"
+    logger = logging.getLogger(__name__)
     
-    async with httpx.AsyncClient() as client:
-        response = await client.get(quiz_bank_url)
-        if response.status_code != 200:
-            raise HTTPException(status_code=500, detail="Failed to fetch quiz bank")
-        quiz_data = response.json()
-    
-    total_loaded = 0
-    
-    # Process each chapter
-    chapters_data = quiz_data.get('chapters', {})
-    
-    for chapter_key, chapter_info in chapters_data.items():
-        chapter_id = int(chapter_key.replace('chapter_', ''))
-        questions = chapter_info.get('questions', [])
+    try:
+        # Read quiz bank from GitHub raw URL
+        quiz_bank_url = "https://raw.githubusercontent.com/Tayyaba-Akbar956/COURSE_COMPANION_FTE/main/content/generative-ai-fundamentals/quiz-bank.json"
         
-        for idx, q in enumerate(questions):
-            # Check if question already exists
-            existing = await db.execute(
-                select(QuizQuestion).where(QuizQuestion.question_text == q['question'])
-            )
-            if existing.scalar_one_or_none():
-                continue
+        logger.info(f"Fetching quiz bank from: {quiz_bank_url}")
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(quiz_bank_url, timeout=30.0)
+            logger.info(f"Response status: {response.status_code}")
             
-            # Create quiz question
-            quiz_question = QuizQuestion(
-                chapter_id=chapter_id,
-                question_text=q['question'],
-                options_json=json.dumps(q['options']),
-                correct_answer=q['correct_answer'],
-                explanation=q.get('explanation', ''),
-                why_wrong=q.get('why_wrong', ''),
-                difficulty='medium',
-                order_in_chapter=idx + 1
-            )
+            if response.status_code != 200:
+                logger.error(f"Failed to fetch quiz bank: {response.status_code}")
+                raise HTTPException(status_code=500, detail=f"Failed to fetch quiz bank: {response.status_code}")
             
-            db.add(quiz_question)
-            total_loaded += 1
-    
-    await db.commit()
-    
-    return {
-        "success": True,
-        "message": f"Loaded {total_loaded} quiz questions",
-        "total_loaded": total_loaded
-    }
+            quiz_data = response.json()
+            logger.info(f"Quiz data loaded: {len(quiz_data.get('chapters', {}))} chapters")
+        
+        total_loaded = 0
+        
+        # Process each chapter
+        chapters_data = quiz_data.get('chapters', {})
+        
+        for chapter_key, chapter_info in chapters_data.items():
+            chapter_id = int(chapter_key.replace('chapter_', ''))
+            questions = chapter_info.get('questions', [])
+            
+            logger.info(f"Processing chapter {chapter_id}: {len(questions)} questions")
+            
+            for idx, q in enumerate(questions):
+                # Check if question already exists
+                existing = await db.execute(
+                    select(QuizQuestion).where(QuizQuestion.question_text == q['question'])
+                )
+                if existing.scalar_one_or_none():
+                    continue
+                
+                # Create quiz question
+                quiz_question = QuizQuestion(
+                    chapter_id=chapter_id,
+                    question_text=q['question'],
+                    options_json=json.dumps(q['options']),
+                    correct_answer=q['correct_answer'],
+                    explanation=q.get('explanation', ''),
+                    why_wrong=q.get('why_wrong', ''),
+                    difficulty='medium',
+                    order_in_chapter=idx + 1
+                )
+                
+                db.add(quiz_question)
+                total_loaded += 1
+        
+        await db.commit()
+        
+        logger.info(f"Successfully loaded {total_loaded} quiz questions")
+        
+        return {
+            "success": True,
+            "message": f"Loaded {total_loaded} quiz questions",
+            "total_loaded": total_loaded
+        }
+    except Exception as e:
+        logger.error(f"Error loading quiz bank: {str(e)}")
+        logger.error(f"Error type: {type(e).__name__}")
+        import traceback
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/{chapter_id}/quiz", response_model=QuizResponse)
