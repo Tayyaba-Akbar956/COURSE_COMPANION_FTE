@@ -80,76 +80,86 @@ async def list_chapters(
 ):
     """
     List all chapters with optional filtering.
-    
+
     - **module**: Filter by module ID
     - **include_progress**: Include user's completion status
     - **free_only**: Show only free chapters
     """
     start_time = datetime.utcnow()
     request_id = str(uuid.uuid4())
-    
-    # Build query
-    from sqlalchemy import select
-    query = select(ChapterModel).join(Module).order_by(Module.module_order, ChapterModel.order_in_module)
-    
-    # Apply filters
-    if module:
-        query = query.where(ChapterModel.module_id == module)
-    
-    if free_only:
-        query = query.where(ChapterModel.is_free == True)
-    
-    # Execute query
-    result = await db.execute(query)
-    chapters = result.scalars().all()
-    
-    # Get user's subscription tier if authenticated
-    user_tier = SubscriptionTier.FREE
-    if current_user and 'user_id' in current_user:
-        from sqlalchemy import select as async_select
-        subscription_result = await db.execute(
-            async_select(Subscription).where(Subscription.user_id == current_user['user_id'])
+
+    try:
+        # Build query
+        from sqlalchemy import select
+        query = select(ChapterModel).join(Module).order_by(Module.module_order, ChapterModel.order_in_module)
+
+        # Apply filters
+        if module:
+            query = query.where(ChapterModel.module_id == module)
+
+        if free_only:
+            query = query.where(ChapterModel.is_free == True)
+
+        # Execute query
+        result = await db.execute(query)
+        chapters = result.scalars().all()
+
+        # Get user's subscription tier if authenticated
+        user_tier = SubscriptionTier.FREE
+        if current_user and 'user_id' in current_user:
+            from sqlalchemy import select as async_select
+            subscription_result = await db.execute(
+                async_select(Subscription).where(Subscription.user_id == current_user['user_id'])
+            )
+            subscription = subscription_result.scalar_one_or_none()
+            if subscription:
+                user_tier = subscription.tier
+
+        # Convert to response format
+        chapter_items = []
+        for chapter in chapters:
+            # Get module title safely
+            module_title = "Unknown"
+            if hasattr(chapter, 'module') and chapter.module:
+                module_title = chapter.module.title
+            
+            chapter_items.append(ChapterListItem(
+                id=chapter.id,
+                chapter_number=chapter.chapter_number,
+                module_id=chapter.module_id,
+                module_title=module_title,
+                title=chapter.title,
+                is_free=chapter.is_free,
+                estimated_minutes=chapter.estimated_minutes,
+                order_in_module=chapter.order_in_module,
+                quiz_available=True  # All chapters have quizzes
+            ))
+
+        execution_time = (datetime.utcnow() - start_time).total_seconds() * 1000
+
+        return ChapterListResponse(
+            success=True,
+            data=ChapterListData(
+                chapters=chapter_items,
+                total_chapters=len(chapter_items),
+                returned_chapters=len(chapter_items),
+                filters_applied={
+                    "module": module,
+                    "include_progress": include_progress,
+                    "free_only": free_only
+                }
+            ),
+            meta=MetaInfo(
+                request_id=request_id,
+                timestamp=datetime.utcnow(),
+                execution_time_ms=int(execution_time)
+            )
         )
-        subscription = subscription_result.scalar_one_or_none()
-        if subscription:
-            user_tier = subscription.tier
-    
-    # Convert to response format
-    chapter_items = []
-    for chapter in chapters:
-        chapter_title = chapter.module.title if chapter.module else "Unknown"
-        chapter_items.append(ChapterListItem(
-            id=chapter.id,
-            chapter_number=chapter.chapter_number,
-            module_id=chapter.module_id,
-            module_title=chapter_title,
-            title=chapter.title,
-            is_free=chapter.is_free,
-            estimated_minutes=chapter.estimated_minutes,
-            order_in_module=chapter.order_in_module,
-            quiz_available=True  # All chapters have quizzes
-        ))
-    
-    execution_time = (datetime.utcnow() - start_time).total_seconds() * 1000
-    
-    return ChapterListResponse(
-        success=True,
-        data=ChapterListData(
-            chapters=chapter_items,
-            total_chapters=len(chapter_items),
-            returned_chapters=len(chapter_items),
-            filters_applied={
-                "module": module,
-                "include_progress": include_progress,
-                "free_only": free_only
-            }
-        ),
-        meta=MetaInfo(
-            request_id=request_id,
-            timestamp=datetime.utcnow(),
-            execution_time_ms=int(execution_time)
-        )
-    )
+    except Exception as e:
+        # Log the actual error for debugging
+        import logging
+        logging.error(f"Error in list_chapters: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 
 
 @router.get("/{chapter_id}", response_model=dict)
