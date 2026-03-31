@@ -51,7 +51,6 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
         id=user_id,
         email=request.email,
         full_name=request.email.split('@')[0],  # Use email prefix as name
-        subscription_tier="free",
         created_at=datetime.utcnow()
     )
     db.add(user)
