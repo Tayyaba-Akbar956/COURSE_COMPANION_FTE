@@ -172,93 +172,104 @@ async def get_chapter(
 ):
     """
     Get full chapter content by ID.
-    
+
     Returns chapter content, sections, images, code examples, and navigation links.
     """
     from sqlalchemy import select
-    
-    # Get chapter with module
-    result = await db.execute(
-        select(ChapterModel).join(Module).where(ChapterModel.id == chapter_id)
-    )
-    chapter = result.scalar_one_or_none()
-    
-    if not chapter:
-        raise HTTPException(
-            status_code=404,
-            detail=ERROR_CODES["CHAPTER_NOT_FOUND"]["message"]
+    from sqlalchemy.orm import selectinload
+
+    try:
+        # Get chapter with module using selectinload for proper async loading
+        result = await db.execute(
+            select(ChapterModel)
+            .options(selectinload(ChapterModel.module))
+            .where(ChapterModel.id == chapter_id)
         )
-    
-    # Check access
-    if not chapter.is_free:
-        if not current_user or 'user_id' not in current_user:
+        chapter = result.scalar_one_or_none()
+
+        if not chapter:
             raise HTTPException(
-                status_code=403,
-                detail="Authentication required for premium content"
+                status_code=404,
+                detail=ERROR_CODES["CHAPTER_NOT_FOUND"]["message"]
             )
-        
-        # Check subscription
-        from sqlalchemy import select as async_select
-        subscription_result = await db.execute(
-            async_select(Subscription).where(Subscription.user_id == current_user['user_id'])
+
+        # Check access
+        if not chapter.is_free:
+            if not current_user or 'user_id' not in current_user:
+                raise HTTPException(
+                    status_code=403,
+                    detail="Authentication required for premium content"
+                )
+
+            # Check subscription
+            from sqlalchemy import select as async_select
+            subscription_result = await db.execute(
+                async_select(Subscription).where(Subscription.user_id == current_user['user_id'])
+            )
+            subscription = subscription_result.scalar_one_or_none()
+
+            if not subscription or subscription.tier == SubscriptionTier.FREE:
+                raise HTTPException(
+                    status_code=403,
+                    detail="This chapter requires premium access"
+                )
+
+        # Get navigation
+        prev_result = await db.execute(
+            select(ChapterModel).where(ChapterModel.order_in_module < chapter.order_in_module)
+            .where(ChapterModel.module_id == chapter.module_id)
+            .order_by(ChapterModel.order_in_module.desc())
+            .limit(1)
         )
-        subscription = subscription_result.scalar_one_or_none()
-        
-        if not subscription or subscription.tier == SubscriptionTier.FREE:
-            raise HTTPException(
-                status_code=403,
-                detail="This chapter requires premium access"
-            )
+        prev_chapter = prev_result.scalar_one_or_none()
+
+        next_result = await db.execute(
+            select(ChapterModel).where(ChapterModel.order_in_module > chapter.order_in_module)
+            .where(ChapterModel.module_id == chapter.module_id)
+            .order_by(ChapterModel.order_in_module.asc())
+            .limit(1)
+        )
+        next_chapter = next_result.scalar_one_or_none()
+
+        # Build response
+        chapter_data = {
+            "id": chapter.id,
+            "chapter_number": chapter.chapter_number,
+            "module_id": chapter.module_id,
+            "module_title": chapter.module.title if chapter.module else "Unknown",
+            "title": chapter.title,
+            "content": chapter.content,
+            "content_html": chapter.content_html,
+            "is_free": chapter.is_free,
+            "estimated_minutes": chapter.estimated_minutes,
+            "order_in_module": chapter.order_in_module,
+            "sections": [],  # Would parse from content
+            "images": [],    # Would load from R2
+            "code_examples": [],  # Would parse from content
+            "navigation": {
+                "previous_chapter_id": prev_chapter.id if prev_chapter else None,
+                "next_chapter_id": next_chapter.id if next_chapter else None,
+                "previous_chapter_title": prev_chapter.title if prev_chapter else None,
+                "next_chapter_title": next_chapter.title if next_chapter else None
+            },
+            "quiz": {
+                "available": True,
+                "quiz_id": chapter.id,  # Quiz ID matches chapter ID
+                "total_questions": 5,
+                "passing_score": 80
+            },
+            "created_at": chapter.created_at,
+            "updated_at": chapter.updated_at
+        }
+
+        return {"success": True, "data": {"chapter": chapter_data}}
     
-    # Get navigation
-    prev_result = await db.execute(
-        select(ChapterModel).where(ChapterModel.order_in_module < chapter.order_in_module)
-        .where(ChapterModel.module_id == chapter.module_id)
-        .order_by(ChapterModel.order_in_module.desc())
-        .limit(1)
-    )
-    prev_chapter = prev_result.scalar_one_or_none()
-    
-    next_result = await db.execute(
-        select(ChapterModel).where(ChapterModel.order_in_module > chapter.order_in_module)
-        .where(ChapterModel.module_id == chapter.module_id)
-        .order_by(ChapterModel.order_in_module.asc())
-        .limit(1)
-    )
-    next_chapter = next_result.scalar_one_or_none()
-    
-    # Build response
-    chapter_data = {
-        "id": chapter.id,
-        "chapter_number": chapter.chapter_number,
-        "module_id": chapter.module_id,
-        "module_title": chapter.module.title if chapter.module else "Unknown",
-        "title": chapter.title,
-        "content": chapter.content,
-        "content_html": chapter.content_html,
-        "is_free": chapter.is_free,
-        "estimated_minutes": chapter.estimated_minutes,
-        "order_in_module": chapter.order_in_module,
-        "sections": [],  # Would parse from content
-        "images": [],    # Would load from R2
-        "code_examples": [],  # Would parse from content
-        "navigation": {
-            "previous_chapter_id": prev_chapter.id if prev_chapter else None,
-            "next_chapter_id": next_chapter.id if next_chapter else None,
-            "previous_chapter_title": prev_chapter.title if prev_chapter else None,
-            "next_chapter_title": next_chapter.title if next_chapter else None
-        },
-        "quiz": {
-            "available": True,
-            "quiz_id": chapter.id,  # Quiz ID matches chapter ID
-            "total_questions": 5,
-            "passing_score": 80
-        },
-        "created_at": chapter.created_at,
-        "updated_at": chapter.updated_at
-    }
-    
-    return {"success": True, "data": {"chapter": chapter_data}}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import logging
+        logging.error(f"Error in get_chapter: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 
 
 @router.post("/{chapter_id}/complete", response_model=ChapterCompleteResponse)
