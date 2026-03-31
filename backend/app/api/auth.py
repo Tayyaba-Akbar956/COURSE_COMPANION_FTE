@@ -10,7 +10,7 @@ from datetime import datetime
 import uuid
 
 from app.database import get_db
-from app.models.user import User, Subscription
+from app.models.user import User, Subscription, SubscriptionTier
 from app.schemas.chapter import (
     SignupRequest,
     LoginRequest,
@@ -21,41 +21,101 @@ from app.schemas.chapter import (
     UserInfo,
     ERROR_CODES
 )
+from app.security import create_access_token, create_refresh_token
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
 @router.post("/signup", response_model=AuthResponse)
-async def signup(request: SignupRequest):
+async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
     """
-    Create new user account (sends magic link).
+    Create new user account.
     
-    In production, this would trigger Supabase Auth to send magic link.
+    For Phase 1 testing: Creates user and returns JWT token.
+    In production: Would use Supabase Auth magic links.
     """
-    # For Phase 1, we'll simulate magic link
-    # In production: Use Supabase Auth SDK
+    # Check if user already exists
+    from sqlalchemy import select
+    result = await db.execute(select(User).where(User.email == request.email))
+    existing_user = result.scalar_one_or_none()
+    
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="User with this email already exists"
+        )
+    
+    # Create new user
+    user_id = str(uuid.uuid4())
+    user = User(
+        id=user_id,
+        email=request.email,
+        full_name=request.email.split('@')[0],  # Use email prefix as name
+        subscription_tier="free",
+        created_at=datetime.utcnow()
+    )
+    db.add(user)
+    
+    # Create free subscription
+    subscription = Subscription(
+        user_id=user_id,
+        tier=SubscriptionTier.FREE,
+        started_at=datetime.utcnow()
+    )
+    db.add(subscription)
+    
+    await db.commit()
+    
+    # Generate JWT tokens
+    access_token = create_access_token(
+        data={"sub": user_id, "email": request.email}
+    )
+    refresh_token = create_refresh_token(
+        data={"sub": user_id}
+    )
     
     return AuthResponse(
         success=True,
-        message=f"Magic link sent to {request.email}",
-        email=request.email
+        message=f"Account created for {request.email}. Use the access_token for authenticated requests.",
+        email=request.email,
+        access_token=access_token,
+        refresh_token=refresh_token
     )
 
 
 @router.post("/login", response_model=AuthResponse)
-async def login(request: LoginRequest):
+async def login(request: LoginRequest, db: AsyncSession = Depends(get_db)):
     """
-    Login with magic link.
+    Login user.
     
-    In production, this would verify magic link token from Supabase Auth.
+    For Phase 1 testing: Returns JWT token.
+    In production: Would use Supabase Auth magic links.
     """
-    # For Phase 1, we'll simulate login
-    # In production: Use Supabase Auth SDK
+    # Check if user exists
+    from sqlalchemy import select
+    result = await db.execute(select(User).where(User.email == request.email))
+    user = result.scalar_one_or_none()
+    
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="User not found. Please sign up first."
+        )
+    
+    # Generate JWT tokens
+    access_token = create_access_token(
+        data={"sub": user.id, "email": user.email}
+    )
+    refresh_token = create_refresh_token(
+        data={"sub": user.id}
+    )
     
     return AuthResponse(
         success=True,
-        message=f"Magic link sent to {request.email}",
-        email=request.email
+        message=f"Welcome back, {user.email}!",
+        email=request.email,
+        access_token=access_token,
+        refresh_token=refresh_token
     )
 
 

@@ -377,6 +377,8 @@ class AuthResponse(BaseModel):
     success: bool
     message: str
     email: str
+    access_token: Optional[str] = None
+    refresh_token: Optional[str] = None
 
 
 class TokenRefreshRequest(BaseModel):
