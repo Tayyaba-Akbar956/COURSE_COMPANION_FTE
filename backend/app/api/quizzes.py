@@ -10,6 +10,7 @@ from sqlalchemy import select
 from datetime import datetime
 import uuid
 import random
+import json
 
 from app.database import get_db
 from app.models.chapter import Chapter
@@ -32,6 +33,66 @@ from app.schemas.chapter import (
 from app.api.chapters import get_current_user
 
 router = APIRouter(prefix="/chapters", tags=["Quizzes"])
+
+
+@router.post("/load-quiz-bank")
+async def load_quiz_bank(
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Load quiz questions from content files into database.
+    Admin only endpoint.
+    """
+    import httpx
+    
+    # Read quiz bank from GitHub raw URL
+    quiz_bank_url = "https://raw.githubusercontent.com/Tayyaba-Akbar956/COURSE_COMPANION_FTE/main/content/generative-ai-fundamentals/quiz-bank.json"
+    
+    async with httpx.AsyncClient() as client:
+        response = await client.get(quiz_bank_url)
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail="Failed to fetch quiz bank")
+        quiz_data = response.json()
+    
+    total_loaded = 0
+    
+    # Process each chapter
+    chapters_data = quiz_data.get('chapters', {})
+    
+    for chapter_key, chapter_info in chapters_data.items():
+        chapter_id = int(chapter_key.replace('chapter_', ''))
+        questions = chapter_info.get('questions', [])
+        
+        for idx, q in enumerate(questions):
+            # Check if question already exists
+            existing = await db.execute(
+                select(QuizQuestion).where(QuizQuestion.question_text == q['question'])
+            )
+            if existing.scalar_one_or_none():
+                continue
+            
+            # Create quiz question
+            quiz_question = QuizQuestion(
+                chapter_id=chapter_id,
+                question_text=q['question'],
+                options_json=json.dumps(q['options']),
+                correct_answer=q['correct_answer'],
+                explanation=q.get('explanation', ''),
+                why_wrong=q.get('why_wrong', ''),
+                difficulty='medium',
+                order_in_chapter=idx + 1
+            )
+            
+            db.add(quiz_question)
+            total_loaded += 1
+    
+    await db.commit()
+    
+    return {
+        "success": True,
+        "message": f"Loaded {total_loaded} quiz questions",
+        "total_loaded": total_loaded
+    }
 
 
 @router.get("/{chapter_id}/quiz", response_model=QuizResponse)
