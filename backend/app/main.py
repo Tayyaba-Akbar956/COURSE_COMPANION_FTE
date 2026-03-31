@@ -49,8 +49,53 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
-    lifespan=lifespan
+    openapi_tags=[
+        {"name": "Auth", "description": "Authentication endpoints"},
+        {"name": "Chapters", "description": "Course chapter endpoints"},
+        {"name": "Quizzes", "description": "Quiz endpoints"},
+        {"name": "Progress", "description": "User progress endpoints"},
+        {"name": "Search", "description": "Search endpoints"},
+    ],
 )
+
+# Add security scheme for Swagger UI
+app.openapi_schema = None
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    
+    from fastapi.openapi.utils import get_openapi
+    
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+    
+    # Add Bearer token authentication
+    openapi_schema["components"] = {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Enter your JWT token"
+            }
+        }
+    }
+    
+    # Add security to all routes
+    for path, path_item in openapi_schema.get("paths", {}).items():
+        for method, operation in path_item.items():
+            if method in ["get", "post", "put", "delete"]:
+                operation["security"] = [{"BearerAuth": []}]
+    
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
 
 # Add rate limiter
 app.state.limiter = limiter
