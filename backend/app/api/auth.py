@@ -34,20 +34,28 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
     For Phase 1 testing: Creates user and returns JWT token.
     In production: Would use Supabase Auth magic links.
     """
+    import logging
+    logger = logging.getLogger(__name__)
+    
     try:
+        logger.info(f"Signup attempt for email: {request.email}")
+        
         # Check if user already exists
         from sqlalchemy import select
         result = await db.execute(select(User).where(User.email == request.email))
         existing_user = result.scalar_one_or_none()
 
         if existing_user:
+            logger.warning(f"User already exists: {request.email}")
             raise HTTPException(
                 status_code=400,
                 detail="User with this email already exists"
             )
 
+        logger.info(f"Creating new user: {request.email}")
+        
         # Create new user
-        user_id = str(uuid.uuid4())
+        user_id = uuid4()
         user = User(
             id=user_id,
             email=request.email,
@@ -57,22 +65,27 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
         db.add(user)
 
         # Create free subscription
+        logger.info(f"Creating subscription for user: {user_id}")
         subscription = Subscription(
-            user_id=user_id,
+            user_id=str(user_id),  # Convert UUID to string for subscription
             tier=SubscriptionTier.FREE,
             started_at=datetime.utcnow()
         )
         db.add(subscription)
 
+        logger.info("Committing to database...")
         await db.commit()
+        logger.info(f"User created successfully: {user_id}")
 
         # Generate JWT tokens
+        logger.info("Generating JWT tokens...")
         access_token = create_access_token(
-            data={"sub": user_id, "email": request.email}
+            data={"sub": str(user_id), "email": request.email}
         )
         refresh_token = create_refresh_token(
-            data={"sub": user_id}
+            data={"sub": str(user_id)}
         )
+        logger.info("Tokens generated successfully")
 
         return AuthResponse(
             success=True,
@@ -82,13 +95,13 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
             refresh_token=refresh_token
         )
     except HTTPException:
+        logger.warning(f"HTTPException during signup")
         raise
     except Exception as e:
-        import logging
-        logging.error(f"Error in signup: {str(e)}")
-        logging.error(f"Error type: {type(e)}")
+        logger.error(f"Error in signup: {str(e)}")
+        logger.error(f"Error type: {type(e).__name__}")
         import traceback
-        logging.error(f"Traceback: {traceback.format_exc()}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 
 

@@ -6,7 +6,7 @@ from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, TYPE_CHECKING
 from datetime import datetime
 from enum import Enum
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 if TYPE_CHECKING:
     from app.models.progress import ChapterProgress, QuizAttempt
@@ -33,8 +33,8 @@ class SubscriptionStatus(str, Enum):
 class User(SQLModel, table=True):
     """User model"""
     __tablename__ = "users"
-    
-    id: str = Field(default_factory=lambda: str(uuid4()), primary_key=True, index=True)
+
+    id: UUID = Field(default_factory=uuid4, primary_key=True, index=True)
     email: str = Field(..., unique=True, index=True, max_length=255)
     full_name: Optional[str] = Field(None, max_length=255)
     avatar_url: Optional[str] = Field(None, max_length=500)
