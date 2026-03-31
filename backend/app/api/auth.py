@@ -30,56 +30,66 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
     """
     Create new user account.
-    
+
     For Phase 1 testing: Creates user and returns JWT token.
     In production: Would use Supabase Auth magic links.
     """
-    # Check if user already exists
-    from sqlalchemy import select
-    result = await db.execute(select(User).where(User.email == request.email))
-    existing_user = result.scalar_one_or_none()
-    
-    if existing_user:
-        raise HTTPException(
-            status_code=400,
-            detail="User with this email already exists"
+    try:
+        # Check if user already exists
+        from sqlalchemy import select
+        result = await db.execute(select(User).where(User.email == request.email))
+        existing_user = result.scalar_one_or_none()
+
+        if existing_user:
+            raise HTTPException(
+                status_code=400,
+                detail="User with this email already exists"
+            )
+
+        # Create new user
+        user_id = str(uuid.uuid4())
+        user = User(
+            id=user_id,
+            email=request.email,
+            full_name=request.email.split('@')[0],  # Use email prefix as name
+            created_at=datetime.utcnow()
         )
-    
-    # Create new user
-    user_id = str(uuid.uuid4())
-    user = User(
-        id=user_id,
-        email=request.email,
-        full_name=request.email.split('@')[0],  # Use email prefix as name
-        created_at=datetime.utcnow()
-    )
-    db.add(user)
-    
-    # Create free subscription
-    subscription = Subscription(
-        user_id=user_id,
-        tier=SubscriptionTier.FREE,
-        started_at=datetime.utcnow()
-    )
-    db.add(subscription)
-    
-    await db.commit()
-    
-    # Generate JWT tokens
-    access_token = create_access_token(
-        data={"sub": user_id, "email": request.email}
-    )
-    refresh_token = create_refresh_token(
-        data={"sub": user_id}
-    )
-    
-    return AuthResponse(
-        success=True,
-        message=f"Account created for {request.email}. Use the access_token for authenticated requests.",
-        email=request.email,
-        access_token=access_token,
-        refresh_token=refresh_token
-    )
+        db.add(user)
+
+        # Create free subscription
+        subscription = Subscription(
+            user_id=user_id,
+            tier=SubscriptionTier.FREE,
+            started_at=datetime.utcnow()
+        )
+        db.add(subscription)
+
+        await db.commit()
+
+        # Generate JWT tokens
+        access_token = create_access_token(
+            data={"sub": user_id, "email": request.email}
+        )
+        refresh_token = create_refresh_token(
+            data={"sub": user_id}
+        )
+
+        return AuthResponse(
+            success=True,
+            message=f"Account created for {request.email}. Use the access_token for authenticated requests.",
+            email=request.email,
+            access_token=access_token,
+            refresh_token=refresh_token
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        import logging
+        logging.error(f"Error in signup: {str(e)}")
+        logging.error(f"Error type: {type(e)}")
+        import traceback
+        logging.error(f"Traceback: {traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 
 
 @router.post("/login", response_model=AuthResponse)
