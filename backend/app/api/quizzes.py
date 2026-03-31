@@ -42,66 +42,74 @@ async def get_quiz(
 ):
     """
     Get quiz for a chapter.
-    
+
     Randomly selects 5 questions from the question bank.
     """
-    # Verify chapter exists
-    chapter_result = await db.execute(select(Chapter).where(Chapter.id == chapter_id))
-    chapter = chapter_result.scalar_one_or_none()
-    
-    if not chapter:
-        raise HTTPException(
-            status_code=404,
-            detail=ERROR_CODES["CHAPTER_NOT_FOUND"]["message"]
+    try:
+        # Verify chapter exists
+        chapter_result = await db.execute(select(Chapter).where(Chapter.id == chapter_id))
+        chapter = chapter_result.scalar_one_or_none()
+
+        if not chapter:
+            raise HTTPException(
+                status_code=404,
+                detail=ERROR_CODES["CHAPTER_NOT_FOUND"]["message"]
+            )
+
+        # Get all questions for this chapter
+        questions_result = await db.execute(
+            select(QuizQuestion)
+            .where(QuizQuestion.chapter_id == chapter_id)
+            .order_by(QuizQuestion.order_in_chapter)
         )
-    
-    # Get all questions for this chapter
-    questions_result = await db.execute(
-        select(QuizQuestion)
-        .where(QuizQuestion.chapter_id == chapter_id)
-        .order_by(QuizQuestion.order_in_chapter)
-    )
-    all_questions = questions_result.scalars().all()
-    
-    if not all_questions:
-        raise HTTPException(
-            status_code=404,
-            detail=ERROR_CODES["QUIZ_NOT_FOUND"]["message"]
+        all_questions = questions_result.scalars().all()
+
+        if not all_questions:
+            raise HTTPException(
+                status_code=404,
+                detail=ERROR_CODES["QUIZ_NOT_FOUND"]["message"]
+            )
+
+        # Randomly select 5 questions (or all if less than 5)
+        selected_questions = random.sample(all_questions, min(5, len(all_questions)))
+
+        # Build quiz questions (without correct answers)
+        quiz_questions = []
+        for idx, q in enumerate(selected_questions):
+            import json
+            options_dict = json.loads(q.options_json)
+            options = [
+                QuizOption(id=opt_id, text=opt_text)
+                for opt_id, opt_text in options_dict.items()
+            ]
+            quiz_questions.append(QuizQuestionSchema(
+                question_id=q.id,
+                question_text=q.question_text,
+                options=options,
+                question_number=idx + 1
+            ))
+
+        # Generate unique quiz session ID
+        quiz_session_id = f"quiz-{chapter_id}-{uuid.uuid4().hex[:8]}"
+
+        return QuizResponse(
+            success=True,
+            data=QuizData(
+                quiz_id=quiz_session_id,
+                chapter_id=chapter_id,
+                chapter_title=chapter.title,
+                total_questions=len(quiz_questions),
+                passing_score=80,
+                time_limit_seconds=None,
+                questions=quiz_questions
+            )
         )
-    
-    # Randomly select 5 questions (or all if less than 5)
-    selected_questions = random.sample(all_questions, min(5, len(all_questions)))
-    
-    # Build quiz questions (without correct answers)
-    quiz_questions = []
-    for idx, q in enumerate(selected_questions):
-        import json
-        options_dict = json.loads(q.options_json)
-        options = [
-            QuizOption(id=opt_id, text=opt_text)
-            for opt_id, opt_text in options_dict.items()
-        ]
-        quiz_questions.append(QuizQuestionSchema(
-            question_id=q.id,
-            question_text=q.question_text,
-            options=options,
-            question_number=idx + 1
-        ))
-    
-    # Generate unique quiz session ID
-    quiz_session_id = f"quiz-{chapter_id}-{uuid.uuid4().hex[:8]}"
-    
-    return QuizResponse(
-        success=True,
-        data=QuizData(
-            quiz_id=quiz_session_id,
-            chapter_id=chapter_id,
-            chapter_title=chapter.title,
-            total_questions=len(quiz_questions),
-            passing_score=80,
-            questions=quiz_questions
-        )
-    )
+    except HTTPException:
+        raise
+    except Exception as e:
+        import logging
+        logging.error(f"Error in get_quiz: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 
 
 @router.post("/quizzes/{quiz_id}/submit", response_model=QuizSubmitResponse)
