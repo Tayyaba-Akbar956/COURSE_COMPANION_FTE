@@ -45,6 +45,7 @@ engine = create_async_engine(
     get_async_database_url(),
     echo=settings.is_development,  # Log SQL queries in development
     pool_pre_ping=True,  # Verify connections before use
+    connect_args={"statement_cache_size": 0},  # Required for Supabase transaction pooler
 )
 
 # Create sync engine for migrations
